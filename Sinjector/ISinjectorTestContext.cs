@@ -1,6 +1,6 @@
 namespace Sinjector
 {
-	public interface IIoCTestContext
+	public interface ISinjectorTestContext
 	{
 		void SimulateShutdown();
 		void SimulateRestart();

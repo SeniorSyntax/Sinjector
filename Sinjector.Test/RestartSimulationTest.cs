@@ -10,7 +10,7 @@ public class RestartSimulationTest
 {
 	public TestService Service;
 	public FakeService FakedService;
-	public IIoCTestContext Context;
+	public ISinjectorTestContext Context;
 
 	[Test]
 	public void ShouldGetNewServiceInstanceAfterRestart()
@@ -30,7 +30,7 @@ public class RestartSimulationTest
 		first.Should().Be.SameInstanceAs(second);
 	}
 
-	public class TestSystemAttribute : IoCTestAttribute, IContainerSetup, IIsolateSystem, IExtendSystem
+	public class TestSystemAttribute : SinjectorFixtureAttribute, IContainerSetup, IIsolateSystem, IExtendSystem
 	{
 		public void ContainerSetup(IContainerSetupContext context)
 		{

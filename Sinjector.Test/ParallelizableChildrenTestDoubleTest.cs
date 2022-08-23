@@ -11,7 +11,7 @@ public class ParallelizableChildrenTestDoubleTest
 	{
 	}
 
-	public class TestSystemAttribute : IoCTestAttribute, IIsolateSystem
+	public class TestSystemAttribute : SinjectorFixtureAttribute, IIsolateSystem
 	{
 		public void Isolate(IIsolate isolate)
 		{

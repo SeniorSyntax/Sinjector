@@ -16,7 +16,7 @@ using SharpTestsEx;
 
 namespace Sinjector.Test.AspNetCore
 {
-	[IoCTest]
+	[SinjectorFixture]
 	[WebApplicationFactoryTest]
 	public class WebApplicationFactoryTest : IIsolateSystem
 	{

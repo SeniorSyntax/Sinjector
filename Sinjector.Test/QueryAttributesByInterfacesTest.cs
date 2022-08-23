@@ -43,7 +43,7 @@ public class QueryAttributesByInterfacesTest
 	}
 
 	[TestSystemExtension]
-	public class TestSystemAttribute : IoCTestAttribute
+	public class TestSystemAttribute : SinjectorFixtureAttribute
 	{
 		public new IEnumerable<T> QueryAllAttributes<T>() =>
 			base.QueryAllAttributes<T>();

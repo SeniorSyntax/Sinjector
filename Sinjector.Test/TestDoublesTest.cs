@@ -75,7 +75,7 @@ public class TestDoublesTest
 		FakeDoubleFaked.Should().Not.Be.Null();
 	}
 
-	public class TestSystemAttribute : IoCTestAttribute, IContainerSetup, IIsolateSystem
+	public class TestSystemAttribute : SinjectorFixtureAttribute, IContainerSetup, IIsolateSystem
 	{
 		public void ContainerSetup(IContainerSetupContext context)
 		{

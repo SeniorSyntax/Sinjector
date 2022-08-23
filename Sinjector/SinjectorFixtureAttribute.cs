@@ -11,7 +11,7 @@ using Sinjector.Internals;
 namespace Sinjector
 {
 	[AttributeUsage(AttributeTargets.Class)]
-	public class IoCTestAttribute : Attribute, ITestAction, IIoCTestContext
+	public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestContext
 	{
 		public ActionTargets Targets => ActionTargets.Test;
 

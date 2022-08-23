@@ -5,7 +5,7 @@
         <PackageVersion>1.0.0.0</PackageVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Autofac" Version="6.3.0"/>
-        <PackageReference Include="NUnit" Version="3.13.1"/>
+        <PackageReference Include="Autofac" Version="6.3.0" />
+        <PackageReference Include="NUnit" Version="3.13.1" />
     </ItemGroup>
 </Project>
