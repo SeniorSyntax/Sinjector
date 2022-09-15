@@ -6,7 +6,7 @@
         <Description>Injector for NUnit tests.</Description>
         <PackageProjectUrl>https://github.com/Teleopti/Sinjector</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageTags>nunit, di, injection, ioc, autofac</PackageTags>
+        <PackageTags>NUnit;DI;Injection;IoC;Autofac</PackageTags>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Autofac" Version="6.3.0" />
