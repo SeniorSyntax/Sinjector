@@ -59,10 +59,8 @@ namespace Sinjector
 		{
 			InvokeExtensions<IContainerBuild>(a =>
 			{
-				//
 				State.Container = a.ContainerBuild(builder =>
 				{
-					//
 					register(builder, () => new ContainerAdaptor(State.TestDoubles, builder, _extensions));
 				});
 			});
@@ -81,10 +79,8 @@ namespace Sinjector
 
 			InvokeExtensions<IContainerBuild>(a =>
 			{
-				//
 				State.Container = a.ContainerBuild(builder =>
 				{
-					//
 					register(builder, () => new IgnoringTestDoubles(builder, _extensions));
 					State.TestDoubles.RegisterFromPreviousContainer(builder);
 				});
