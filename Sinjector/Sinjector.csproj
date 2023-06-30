@@ -8,8 +8,8 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>NUnit;DI;Injection;IoC;Autofac</PackageTags>
     </PropertyGroup>
-    <ItemGroup>    
-        <PackageReference Include="Autofac" Version="[6,)" PrivateAssets="All" />
+    <ItemGroup>
+        <PackageReference Include="Autofac" Version="6.5.0" />
         <PackageReference Include="NUnit" Version="3.13.1" />
     </ItemGroup>
 </Project>
