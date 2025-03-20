@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using Autofac;
 using Autofac.Core;
@@ -104,6 +105,9 @@ namespace Sinjector.Test.AspNetCore
 			public AutofacWebApplicationFactory(Action<ContainerBuilder> registrations)
 			{
 				_registrations = registrations;
+				// to fool WebApplicationFactory to not look for .sln file for content root
+				var assemblyFullName = typeof(TStartup).Assembly.FullName;
+				File.WriteAllText("MvcTestingAppManifest.json", $"{{\"{assemblyFullName}\": \".\"}}");
 			}
 
 			protected override IHostBuilder CreateHostBuilder()

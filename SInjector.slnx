@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/files/">
+    <File Path=".github/workflows/dotnet.yml" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="Sinjector.Test/Sinjector.Test.csproj" />
+  <Project Path="Sinjector/Sinjector.csproj" />
+</Solution>
