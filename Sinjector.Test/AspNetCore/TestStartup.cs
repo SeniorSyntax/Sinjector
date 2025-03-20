@@ -1,5 +1,3 @@
-#if !NET472
-
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,5 +46,3 @@ namespace Sinjector.Test.AspNetCore
 		}
 	}
 }
-
-#endif

@@ -1,5 +1,4 @@
-﻿#if !NET472
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Sinjector.Test.AspNetCore
 {
@@ -23,5 +22,3 @@ namespace Sinjector.Test.AspNetCore
 
 	}
 }
-
-#endif

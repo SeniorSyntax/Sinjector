@@ -1,4 +1,3 @@
-#if !NET472
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -172,5 +171,3 @@ namespace Sinjector.Test.AspNetCore
 		}
 	}
 }
-
-#endif
