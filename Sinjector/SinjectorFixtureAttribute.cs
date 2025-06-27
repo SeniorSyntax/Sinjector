@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using Autofac;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -127,8 +126,7 @@ namespace Sinjector
 
 		protected void InvokeExtensions<T>(Action<T> action) where T : class =>
 			_extensions.InvokeExtensions(action);
-
-		protected bool HasAttribute<T>() => QueryAllAttributes<T>().Any();
+		
 		protected IEnumerable<T> QueryAllAttributes<T>() => _extensions.Query<T>();
 		protected T Resolve<T>() => State.Container.Resolve<T>();
 
