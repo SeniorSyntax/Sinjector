@@ -56,20 +56,12 @@ public class RestartSimulationTest
 		}
 	}
 
-	public class TestService
-	{
-	}
+	public class TestService;
 
-	public class TestExtensionService
-	{
-	}
+	public class TestExtensionService;
 	
-	public interface IFakedService
-	{
-	}
+	public interface IFakedService;
 
-	public class FakeService : IFakedService
-	{
-	}
+	public class FakeService : IFakedService;
 
 }

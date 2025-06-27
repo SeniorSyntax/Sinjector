@@ -107,63 +107,33 @@ public class TestDoublesTest
 		}
 	}
 
-	public interface IGenericTypedService
-	{
-	}
+	public interface IGenericTypedService;
 
-	private class RealGenericTypedService : IGenericTypedService
-	{
-	}
+	private class RealGenericTypedService : IGenericTypedService;
 
-	public class FakeGenericTypedService : IGenericTypedService
-	{
-	}
+	public class FakeGenericTypedService : IGenericTypedService;
 
-	public interface IInstancedService
-	{
-	}
+	public interface IInstancedService;
 
-	public class RealInstancedService : IInstancedService
-	{
-	}
+	public class RealInstancedService : IInstancedService;
 
-	public class FakeInstancedService : IInstancedService
-	{
-	}
+	public class FakeInstancedService : IInstancedService;
 
-	public interface ITypedService
-	{
-	}
+	public interface ITypedService;
 
-	public class RealTypedService : ITypedService
-	{
-	}
+	public class RealTypedService : ITypedService;
 
-	public class FakeTypedService : ITypedService
-	{
-	}
+	public class FakeTypedService : ITypedService;
 
-	public interface INonActivatedService
-	{
-	}
+	public interface INonActivatedService;
 
-	public class RealNonActivatedService : INonActivatedService
-	{
-	}
+	public class RealNonActivatedService : INonActivatedService;
 
-	public class FakeNonActivatedService : INonActivatedService
-	{
-	}
+	public class FakeNonActivatedService : INonActivatedService;
 
-	public interface IDoubleFakedService
-	{
-	}
+	public interface IDoubleFakedService;
 
-	public class RealDoubleFakedService : IDoubleFakedService
-	{
-	}
+	public class RealDoubleFakedService : IDoubleFakedService;
 
-	public class FakeDoubleFakedService : IDoubleFakedService
-	{
-	}
+	public class FakeDoubleFakedService : IDoubleFakedService;
 }
