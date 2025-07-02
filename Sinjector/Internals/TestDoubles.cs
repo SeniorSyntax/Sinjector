@@ -5,7 +5,7 @@ using Autofac;
 
 namespace Sinjector.Internals
 {
-	internal class TestDoubles : IDisposable
+	internal class TestDoubles : ITestDoubles, IDisposable
 	{
 		private readonly List<testDouble> _items = new List<testDouble>();
 

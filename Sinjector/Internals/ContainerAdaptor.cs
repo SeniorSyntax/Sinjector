@@ -5,24 +5,24 @@ namespace Sinjector.Internals
 {
 	internal class ContainerAdaptor
 	{
-		private readonly TestDoubles _testDoubles;
+		private readonly ITestDoubles _testDoubles;
 		private readonly ContainerBuilder _builder;
 		private readonly ExtensionQuerier _extensions;
 
-		public ContainerAdaptor(TestDoubles testDoubles, ContainerBuilder builder, ExtensionQuerier extensions)
+		public ContainerAdaptor(ITestDoubles testDoubles, ContainerBuilder builder, ExtensionQuerier extensions)
 		{
 			_testDoubles = testDoubles;
 			_builder = builder;
 			_extensions = extensions;
 		}
 
-		public virtual ITestDoubleFor UseTestDouble<TTestDouble>() where TTestDouble : class =>
+		public ITestDoubleFor UseTestDouble<TTestDouble>() where TTestDouble : class =>
 			new testDoubleFor<TTestDouble>(_testDoubles, _builder, null);
 
-		public virtual ITestDoubleFor UseTestDouble<TTestDouble>(TTestDouble instance) where TTestDouble : class =>
+		public ITestDoubleFor UseTestDouble<TTestDouble>(TTestDouble instance) where TTestDouble : class =>
 			new testDoubleFor<TTestDouble>(_testDoubles, _builder, instance);
 
-		public virtual ITestDoubleFor UseTestDoubleForType(Type type) =>
+		public ITestDoubleFor UseTestDoubleForType(Type type) =>
 			new testDoubleFor<object>(_testDoubles, _builder, type);
 
 		public void AddService<TService>(bool instancePerLifeTimeScope)
@@ -83,19 +83,19 @@ namespace Sinjector.Internals
 
 		private class testDoubleFor<TTestDouble> : ITestDoubleFor where TTestDouble : class
 		{
-			private readonly TestDoubles _testDoubles;
+			private readonly ITestDoubles _testDoubles;
 			private readonly ContainerBuilder _builder;
 			private readonly Type _type;
 			private readonly object _instance;
 
-			public testDoubleFor(TestDoubles testDoubles, ContainerBuilder builder, object instance)
+			public testDoubleFor(ITestDoubles testDoubles, ContainerBuilder builder, object instance)
 			{
 				_testDoubles = testDoubles;
 				_builder = builder;
 				_instance = instance;
 			}
 
-			public testDoubleFor(TestDoubles testDoubles, ContainerBuilder builder, Type type)
+			public testDoubleFor(ITestDoubles testDoubles, ContainerBuilder builder, Type type)
 			{
 				_testDoubles = testDoubles;
 				_builder = builder;

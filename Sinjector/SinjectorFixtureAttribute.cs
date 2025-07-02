@@ -23,7 +23,7 @@ namespace Sinjector
 		{
 			public object Fixture;
 			public IContainer Container;
-			public TestDoubles TestDoubles;
+			public ITestDoubles TestDoubles;
 		}
 
 		private static string WorkerId => TestContext.CurrentContext.WorkerId ?? "single";
@@ -80,7 +80,7 @@ namespace Sinjector
 			{
 				State.Container = a.ContainerBuild(builder =>
 				{
-					register(builder, () => new IgnoringTestDoubles(builder, _extensions));
+					register(builder, () => new ContainerAdaptor(new IgnoreTestDoubles(), builder, _extensions));
 					State.TestDoubles.RegisterFromPreviousContainer(builder);
 				});
 			});
@@ -88,7 +88,7 @@ namespace Sinjector
 			if (State.Container == null)
 			{
 				var builder = new ContainerBuilder();
-				register(builder, () => new IgnoringTestDoubles(builder, _extensions));
+				register(builder, () => new ContainerAdaptor(new IgnoreTestDoubles(), builder, _extensions));
 				State.TestDoubles.RegisterFromPreviousContainer(builder);
 				State.Container = builder.Build();
 			}
@@ -114,7 +114,7 @@ namespace Sinjector
 		{
 			InvokeExtensions<ITestTeardown>(x => x.TestTeardown());
 			disposeContainer();
-			State.TestDoubles?.Dispose();
+			(State.TestDoubles as IDisposable)?.Dispose();
 			_injector = null;
 			_state.TryRemove(WorkerId, out _);
 		}
