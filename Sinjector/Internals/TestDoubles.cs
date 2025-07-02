@@ -25,10 +25,10 @@ namespace Sinjector.Internals
 				asTypes = asTypes
 			};
 			_items.Add(testDouble);
-			register<TTestDouble>(builder, testDouble);
+			register(builder, testDouble);
 		}
 
-		private static void register<TTestDouble>(ContainerBuilder builder, testDouble testDouble)
+		private static void register(ContainerBuilder builder, testDouble testDouble)
 		{
 			var instance = testDouble.instance;
 			var type = testDouble.type;
@@ -37,7 +37,7 @@ namespace Sinjector.Internals
 			if (instance != null)
 				registerInstance(builder, instance, asTypes);
 			else
-				registerType(builder, type ?? typeof(TTestDouble), asTypes);
+				registerType(builder, type, asTypes);
 		}
 
 		public void KeepInstance(object instance, Type type)
