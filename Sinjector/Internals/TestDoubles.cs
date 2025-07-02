@@ -40,7 +40,7 @@ namespace Sinjector.Internals
 				registerType(builder, type ?? typeof(TTestDouble), asTypes);
 		}
 
-		private void keepInstance(object instance, Type type)
+		public void KeepInstance(object instance, Type type)
 		{
 			_items
 				.Where(x => x.type == type)
@@ -73,8 +73,8 @@ namespace Sinjector.Internals
 				.PropertiesAutowired()
 				.OnActivated(c =>
 				{
-					c.Context.Resolve<TestDoubles>()
-						.keepInstance(c.Instance, type);
+					c.Context.Resolve<ITestDoubles>()
+						.KeepInstance(c.Instance, type);
 				});
 		}
 

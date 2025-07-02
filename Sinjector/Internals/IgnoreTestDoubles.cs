@@ -13,5 +13,9 @@ namespace Sinjector.Internals
         public void RegisterFromPreviousContainer(ContainerBuilder builder)
         {
         }
+
+        public void KeepInstance(object instance, Type type)
+        {
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace Sinjector.Internals
             where TTestDouble : class;
 
         void RegisterFromPreviousContainer(ContainerBuilder builder);
+        void KeepInstance(object instance, Type type);
     }
 }
