@@ -3,50 +3,39 @@ using Autofac;
 
 namespace Sinjector.Internals
 {
-	internal class ContainerAdaptor
+	internal class ContainerAdaptor(ITestDoubles testDoubles, ContainerBuilder builder, ExtensionQuerier extensions)
 	{
-		private readonly ITestDoubles _testDoubles;
-		private readonly ContainerBuilder _builder;
-		private readonly ExtensionQuerier _extensions;
-
-		public ContainerAdaptor(ITestDoubles testDoubles, ContainerBuilder builder, ExtensionQuerier extensions)
-		{
-			_testDoubles = testDoubles;
-			_builder = builder;
-			_extensions = extensions;
-		}
-
 		public ITestDoubleFor UseTestDouble(object instance) =>
-			new testDoubleFor(_testDoubles, _builder, null, instance);
+			new testDoubleFor(testDoubles, builder, null, instance);
 
 		public ITestDoubleFor UseTestDoubleForType(Type type) =>
-			new testDoubleFor(_testDoubles, _builder, type, null);
+			new testDoubleFor(testDoubles, builder, type, null);
 
 		public void AddService<TService>(bool instancePerLifeTimeScope)
 		{
 			if (instancePerLifeTimeScope)
 			{
-				var registration = _builder
+				var registration = builder
 					.RegisterType<TService>()
 					.AsSelf()
 					.AsImplementedInterfaces()
 					.InstancePerLifetimeScope();
-				_extensions.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
+				extensions.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
 			}
 			else
 			{
-				var registration = _builder
+				var registration = builder
 					.RegisterType<TService>()
 					.AsSelf()
 					.AsImplementedInterfaces()
 					.SingleInstance();
-				_extensions.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
+				extensions.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
 			}
 		}
 
 		public void AddService<TService>(TService instance) where TService : class
 		{
-			_builder
+			builder
 				.RegisterInstance(instance)
 				.AsSelf()
 				.AsImplementedInterfaces()
@@ -57,42 +46,30 @@ namespace Sinjector.Internals
 		{
 			if (instancePerLifeTimeScope)
 			{
-				var registration = _builder
+				var registration = builder
 					.RegisterType(type)
 					.AsSelf()
 					.AsImplementedInterfaces()
 					.InstancePerLifetimeScope();
-				_extensions.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
+				extensions.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
 			}
 			else
 			{
-				var registration = _builder
+				var registration = builder
 					.RegisterType(type)
 					.AsSelf()
 					.AsImplementedInterfaces()
 					.SingleInstance();
-				_extensions.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
+				extensions.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
 			}
 		}
 
 		public void AddModule(Module module) =>
-			_builder.RegisterModule(module);
+			builder.RegisterModule(module);
 
-		private class testDoubleFor : ITestDoubleFor
+		private class testDoubleFor(ITestDoubles testDoubles, ContainerBuilder builder, Type type, object instance)
+			: ITestDoubleFor
 		{
-			private readonly ITestDoubles _testDoubles;
-			private readonly ContainerBuilder _builder;
-			private readonly Type _type;
-			private readonly object _instance;
-
-			public testDoubleFor(ITestDoubles testDoubles, ContainerBuilder builder, Type type, object instance)
-			{
-				_testDoubles = testDoubles;
-				_builder = builder;
-				_type = type;
-				_instance = instance;
-			}
-
 			public void For<T>() => register(typeof(T));
 			public void For<T1, T2>() => register(typeof(T1), typeof(T2));
 			public void For<T1, T2, T3>() => register(typeof(T1), typeof(T2), typeof(T3));
@@ -103,7 +80,7 @@ namespace Sinjector.Internals
 			public void For(Type type) => register(type);
 
 			private void register(params Type[] asTypes) => 
-				_testDoubles.Register(_builder, _instance, _type, asTypes);
+				testDoubles.Register(builder, instance, type, asTypes);
 		}
 	}
 }
