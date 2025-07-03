@@ -64,14 +64,10 @@ public class QueryAttributesTest
 
 	[TestQueriable("TestSystemExtendedAttribute")]
 	[TestSystemExtensionLevel2]
-	public class TestSystemExtensionAttribute : Attribute
-	{
-	}
+	public class TestSystemExtensionAttribute : Attribute;
 
 	[TestQueriable("TestSystemExtendedLevel2Attribute")]
-	public class TestSystemExtensionLevel2Attribute : Attribute
-	{
-	}
+	public class TestSystemExtensionLevel2Attribute : Attribute;
 
 	public class TestQueriableAttribute : Attribute
 	{
