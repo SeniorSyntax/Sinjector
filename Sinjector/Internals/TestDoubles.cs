@@ -16,12 +16,12 @@ namespace Sinjector.Internals
 			public Type[] asTypes;
 		}
 
-		public void Register<TTestDouble>(ContainerBuilder builder, object instance, Type type, Type[] asTypes) where TTestDouble : class
+		public void Register(ContainerBuilder builder, object instance, Type type, Type[] asTypes)
 		{
 			var testDouble = new testDouble
 			{
 				instance = instance,
-				type = type ?? typeof(TTestDouble),
+				type = type,
 				asTypes = asTypes
 			};
 			_items.Add(testDouble);

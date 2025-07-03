@@ -16,14 +16,11 @@ namespace Sinjector.Internals
 			_extensions = extensions;
 		}
 
-		public ITestDoubleFor UseTestDouble<TTestDouble>() where TTestDouble : class =>
-			new testDoubleFor<TTestDouble>(_testDoubles, _builder, null);
-
-		public ITestDoubleFor UseTestDouble<TTestDouble>(TTestDouble instance) where TTestDouble : class =>
-			new testDoubleFor<TTestDouble>(_testDoubles, _builder, instance);
+		public ITestDoubleFor UseTestDouble(object instance) =>
+			new testDoubleFor(_testDoubles, _builder, null, instance);
 
 		public ITestDoubleFor UseTestDoubleForType(Type type) =>
-			new testDoubleFor<object>(_testDoubles, _builder, type);
+			new testDoubleFor(_testDoubles, _builder, type, null);
 
 		public void AddService<TService>(bool instancePerLifeTimeScope)
 		{
@@ -81,25 +78,19 @@ namespace Sinjector.Internals
 		public void AddModule(Module module) =>
 			_builder.RegisterModule(module);
 
-		private class testDoubleFor<TTestDouble> : ITestDoubleFor where TTestDouble : class
+		private class testDoubleFor : ITestDoubleFor
 		{
 			private readonly ITestDoubles _testDoubles;
 			private readonly ContainerBuilder _builder;
 			private readonly Type _type;
 			private readonly object _instance;
 
-			public testDoubleFor(ITestDoubles testDoubles, ContainerBuilder builder, object instance)
-			{
-				_testDoubles = testDoubles;
-				_builder = builder;
-				_instance = instance;
-			}
-
-			public testDoubleFor(ITestDoubles testDoubles, ContainerBuilder builder, Type type)
+			public testDoubleFor(ITestDoubles testDoubles, ContainerBuilder builder, Type type, object instance)
 			{
 				_testDoubles = testDoubles;
 				_builder = builder;
 				_type = type;
+				_instance = instance;
 			}
 
 			public void For<T>() => register(typeof(T));
@@ -111,10 +102,8 @@ namespace Sinjector.Internals
 			public void For<T1, T2, T3, T4, T5, T6, T7>() => register(typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7));
 			public void For(Type type) => register(type);
 
-			private void register(params Type[] asTypes)
-			{
-				_testDoubles.Register<TTestDouble>(_builder, _instance, _type, asTypes);
-			}
+			private void register(params Type[] asTypes) => 
+				_testDoubles.Register(_builder, _instance, _type, asTypes);
 		}
 	}
 }

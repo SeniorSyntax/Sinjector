@@ -5,9 +5,7 @@ namespace Sinjector.Internals
 {
     internal interface ITestDoubles
     {
-        void Register<TTestDouble>(ContainerBuilder builder, object instance, Type type, Type[] asTypes)
-            where TTestDouble : class;
-
+        void Register(ContainerBuilder builder, object instance, Type type, Type[] asTypes);
         void RegisterFromPreviousContainer(ContainerBuilder builder);
         void KeepInstance(object instance, Type type);
     }

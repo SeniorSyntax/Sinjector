@@ -30,7 +30,7 @@ namespace Sinjector.Internals
 			_containerAdaptor.AddModule(module);
 
 		public ITestDoubleFor UseTestDouble<TTestDouble>() where TTestDouble : class =>
-			_containerAdaptor.UseTestDouble<TTestDouble>();
+			_containerAdaptor.UseTestDoubleForType(typeof(TTestDouble));
 
 		public ITestDoubleFor UseTestDouble<TTestDouble>(TTestDouble instance) where TTestDouble : class =>
 			_containerAdaptor.UseTestDouble(instance);
