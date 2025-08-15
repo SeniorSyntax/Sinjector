@@ -1,11 +1,9 @@
 using System;
 using Autofac;
-using Autofac.Core;
 
-namespace Sinjector
+namespace Sinjector;
+
+public interface IContainerBuild
 {
-	public interface IContainerBuild
-	{
-		Container ContainerBuild(Action<ContainerBuilder> registrations);
-	}
+	IComponentContext ContainerBuild(Action<ContainerBuilder> registrations);
 }

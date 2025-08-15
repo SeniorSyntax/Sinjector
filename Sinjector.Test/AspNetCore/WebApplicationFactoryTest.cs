@@ -72,7 +72,7 @@ public class WebApplicationFactoryTest : IIsolateSystem
 
 	public class WebApplicationFactoryTestAttribute : Attribute, IContainerBuild, IContainerSetup
 	{
-		public Container ContainerBuild(Action<ContainerBuilder> registrations)
+		public IComponentContext ContainerBuild(Action<ContainerBuilder> registrations)
 		{
 			AutofacWebApplicationFactory<TestStartup> factory = null;
 
