@@ -71,7 +71,7 @@ public class WebApplicationFactoryTest : IIsolateSystem
 		HttpContextAccessor.Should().Have.Count.EqualTo(1);
 	}
 
-	public class WebApplicationFactoryTestAttribute : Attribute, IContainerBuild, IContainerSetup
+	public class WebApplicationFactoryTestAttribute : Attribute, IContainerBuild<ContainerBuilder>, IContainerSetup
 	{
 		public ITheContainerThingy ContainerBuild(Action<ContainerBuilder> registrations)
 		{

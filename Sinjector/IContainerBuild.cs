@@ -1,9 +1,8 @@
 using System;
-using Autofac;
 
 namespace Sinjector;
 
-public interface IContainerBuild
+public interface IContainerBuild<T>
 {
-	ITheContainerThingy ContainerBuild(Action<ContainerBuilder> registrations);
+	ITheContainerThingy ContainerBuild(Action<T> registrations);
 }
