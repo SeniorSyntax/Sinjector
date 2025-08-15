@@ -20,7 +20,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 	private class TestState
 	{
 		public object Fixture;
-		public IContainer Container;
+		public IComponentContext Container;
 		public ITestDoubles TestDoubles;
 	}
 
@@ -119,7 +119,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 	}
 
 	private void disposeContainer() => 
-		State.Container?.Dispose();
+		(State.Container as IDisposable)?.Dispose();
 
 	protected void InvokeExtensions<T>(Action<T> action) where T : class =>
 		_extensions.InvokeExtensions(action);
