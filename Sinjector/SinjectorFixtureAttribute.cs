@@ -119,7 +119,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 	}
 
 	private void disposeContainer() => 
-		(State.Container as IDisposable)?.Dispose();
+		State.Container?.Dispose();
 
 	protected void InvokeExtensions<T>(Action<T> action) where T : class =>
 		_extensions.InvokeExtensions(action);
