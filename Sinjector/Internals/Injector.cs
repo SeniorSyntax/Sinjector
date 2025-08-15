@@ -1,16 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Autofac;
 
 namespace Sinjector.Internals;
 
 internal class Injector
 {
-	private IComponentContext _container;
+	private ITheContainerThingy _container;
 	private readonly List<object> _targets = new();
 
-	public Injector Source(IComponentContext container)
+	public Injector Source(ITheContainerThingy container)
 	{
 		_container = container;
 		return this;
@@ -25,7 +24,7 @@ internal class Injector
 	public void Inject() => 			
 		_targets.ForEach(x => injectTo(_container, x));
 		
-	private static void injectTo(IComponentContext container, object target)
+	private static void injectTo(ITheContainerThingy container, object target)
 	{
 		var type = target.GetType();
 		var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)

@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NUnit.Framework;
 using SharpTestsEx;
+using Sinjector.Internals;
 
 namespace Sinjector.Test.AspNetCore;
 
@@ -72,7 +73,7 @@ public class WebApplicationFactoryTest : IIsolateSystem
 
 	public class WebApplicationFactoryTestAttribute : Attribute, IContainerBuild, IContainerSetup
 	{
-		public IComponentContext ContainerBuild(Action<ContainerBuilder> registrations)
+		public ITheContainerThingy ContainerBuild(Action<ContainerBuilder> registrations)
 		{
 			AutofacWebApplicationFactory<TestStartup> factory = null;
 
@@ -83,7 +84,7 @@ public class WebApplicationFactoryTest : IIsolateSystem
 			});
 			factory.CreateClient();
 
-			return factory.Container;
+			return new AutofacThingy(factory.Container);
 		}
 
 		public void ContainerSetup(IContainerSetupContext context)
