@@ -138,8 +138,5 @@ namespace Sinjector
 			rebuildContainer();
 			_injector?.Inject();
 		}
-
-		public void SimulateNewRequest() =>
-			_injector?.InjectFrom(State.Container.BeginLifetimeScope());
 	}
 }

@@ -24,6 +24,7 @@ namespace Sinjector.Internals
 
 		public void Inject() => InjectFrom(_container);
 
+		//can we remove this one?
 		public void InjectFrom(IComponentContext container) =>
 			_targets.ForEach(x => injectTo(container, x));
 

@@ -4,6 +4,5 @@ namespace Sinjector
 	{
 		void SimulateShutdown();
 		void SimulateRestart();
-		void SimulateNewRequest();
 	}
 }
