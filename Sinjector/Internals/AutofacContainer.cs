@@ -8,10 +8,35 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
 {
     public ContainerBuilder ContainerBuilder { get; } = builder;
 
-    public ITheContainer Build()
+    public void RegisterTestDoubleType(Type type, Type[] asTypes)
     {
-        return new AutofacContainer(ContainerBuilder.Build());
+        builder
+            .RegisterType(type)
+            .SingleInstance()
+            .AsSelf()
+            .As(asTypes)
+            .ExternallyOwned()
+            .PropertiesAutowired()
+            .OnActivated(c =>
+            {
+                c.Context.Resolve<ITestDoubles>()
+                    .KeepInstance(c.Instance, type);
+            });
     }
+
+    public void RegisterTestDoubleInstance(object instance, Type[] asTypes)
+    {
+        builder
+            .RegisterInstance(instance)
+            .AsSelf()
+            .As(asTypes)
+            .ExternallyOwned()
+            .PropertiesAutowired();
+    }
+    
+    
+    public ITheContainer Build() => 
+        new AutofacContainer(ContainerBuilder.Build());
 }
 
 //should be internal

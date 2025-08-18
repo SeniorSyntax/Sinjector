@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Autofac;
 
 namespace Sinjector.Internals;
 
 internal class TestDoubles : ITestDoubles, IDisposable
 {
-	private readonly List<testDouble> _items = new List<testDouble>();
+	private readonly List<testDouble> _items = [];
 
 	private class testDouble
 	{
@@ -35,9 +34,9 @@ internal class TestDoubles : ITestDoubles, IDisposable
 		var asTypes = testDouble.asTypes;
 
 		if (instance != null)
-			registerInstance(builder, instance, asTypes);
+			builder.RegisterTestDoubleInstance(instance, asTypes);
 		else
-			registerType(builder, type, asTypes);
+			builder.RegisterTestDoubleType(type, asTypes);
 	}
 
 	public void KeepInstance(object instance, Type type)
@@ -53,39 +52,13 @@ internal class TestDoubles : ITestDoubles, IDisposable
 		{
 			if (x.instance == null)
 			{
-				registerType(builder, x.type, x.asTypes);
+				builder.RegisterTestDoubleType(x.type, x.asTypes);
 			}
 			else
 			{
-				registerInstance(builder, x.instance, x.asTypes);
+				builder.RegisterTestDoubleInstance(x.instance, x.asTypes);
 			}
 		});
-	}
-
-	private static void registerType(ITheContainerBuilder builder, Type type, Type[] asTypes)
-	{
-		builder.ContainerBuilder
-			.RegisterType(type)
-			.SingleInstance()
-			.AsSelf()
-			.As(asTypes)
-			.ExternallyOwned()
-			.PropertiesAutowired()
-			.OnActivated(c =>
-			{
-				c.Context.Resolve<ITestDoubles>()
-					.KeepInstance(c.Instance, type);
-			});
-	}
-
-	private static void registerInstance(ITheContainerBuilder builder, object instance, Type[] asTypes)
-	{
-		builder.ContainerBuilder
-			.RegisterInstance(instance)
-			.AsSelf()
-			.As(asTypes)
-			.ExternallyOwned()
-			.PropertiesAutowired();
 	}
 
 	public void Dispose()

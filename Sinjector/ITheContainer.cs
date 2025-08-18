@@ -11,6 +11,8 @@ public interface ITheContainerBuilder
     
     //can be removed?
     ITheContainer Build();
+    void RegisterTestDoubleType(Type type, Type[] asTypes);
+    void RegisterTestDoubleInstance(object instance, Type[] asTypes);
 }
 
 public interface ITheContainer : IDisposable
