@@ -21,24 +21,17 @@ internal class ContainerSetupContext : IContainerSetupContext
 
 	public void AddService<TService>(bool instancePerLifeTimeScope = false)
 	{
+		var registration = _builder.ContainerBuilder
+			.RegisterType<TService>()
+			.AsSelf()
+			.AsImplementedInterfaces();
+			
 		if (instancePerLifeTimeScope)
-		{
-			var registration = _builder.ContainerBuilder
-				.RegisterType<TService>()
-				.AsSelf()
-				.AsImplementedInterfaces()
-				.InstancePerLifetimeScope();
-			_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
-		}
+			registration.InstancePerLifetimeScope();
 		else
-		{
-			var registration = _builder.ContainerBuilder
-				.RegisterType<TService>()
-				.AsSelf()
-				.AsImplementedInterfaces()
-				.SingleInstance();
-			_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
-		}
+			registration.SingleInstance();
+		
+		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
 	}
 
 	public void AddService<TService>(TService instance) where TService : class
@@ -52,24 +45,17 @@ internal class ContainerSetupContext : IContainerSetupContext
 
 	public void AddService(Type type, bool instancePerLifeTimeScope = false)
 	{
+		var registration = _builder.ContainerBuilder
+			.RegisterType(type)
+			.AsSelf()
+			.AsImplementedInterfaces();
+
 		if (instancePerLifeTimeScope)
-		{
-			var registration = _builder.ContainerBuilder
-				.RegisterType(type)
-				.AsSelf()
-				.AsImplementedInterfaces()
-				.InstancePerLifetimeScope();
-			_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
-		}
+			registration.InstancePerLifetimeScope();
 		else
-		{
-			var registration = _builder.ContainerBuilder
-				.RegisterType(type)
-				.AsSelf()
-				.AsImplementedInterfaces()
-				.SingleInstance();
-			_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
-		}
+			registration.SingleInstance();
+		
+		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
 	}
 
 	public void AddModule(Module module) =>
