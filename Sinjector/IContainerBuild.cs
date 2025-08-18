@@ -2,7 +2,7 @@ using System;
 
 namespace Sinjector;
 
-public interface IContainerBuild<T>
+public interface IContainerBuild
 {
-	ITheContainer ContainerBuild(Action<T> registrations);
+	ITheContainer ContainerBuild(Action<ITheContainerBuilder> registrations);
 }

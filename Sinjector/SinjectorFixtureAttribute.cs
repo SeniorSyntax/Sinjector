@@ -55,7 +55,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 
 	private void buildContainer()
 	{
-		InvokeExtensions<IContainerBuild<ITheContainerBuilder>>(a =>
+		InvokeExtensions<IContainerBuild>(a =>
 		{
 			State.Container = a.ContainerBuild(builder =>
 			{
@@ -75,7 +75,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 	{
 		State.Container = null;
 
-		InvokeExtensions<IContainerBuild<ITheContainerBuilder>>(a =>
+		InvokeExtensions<IContainerBuild>(a =>
 		{
 			State.Container = a.ContainerBuild(builder =>
 			{
