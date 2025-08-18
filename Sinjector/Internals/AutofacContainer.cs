@@ -3,6 +3,7 @@ using Autofac;
 
 namespace Sinjector.Internals;
 
+//should be public I think
 public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
 {
     public ContainerBuilder ContainerBuilder { get; } = builder;
@@ -13,6 +14,7 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
     }
 }
 
+//should be internal
 public class AutofacContainer(IContainer container) : ITheContainer
 {
     public object Resolve(Type type) => 
