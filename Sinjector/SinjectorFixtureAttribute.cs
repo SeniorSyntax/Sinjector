@@ -20,7 +20,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 	private class TestState
 	{
 		public object Fixture;
-		public ITheContainerThingy Container;
+		public ITheContainer Container;
 		public ITestDoubles TestDoubles;
 	}
 
@@ -67,7 +67,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 		{
 			var builder = new ContainerBuilder();
 			register(builder, State.TestDoubles);
-			State.Container = new AutofacThingy(builder.Build());
+			State.Container = new AutofacContainer(builder.Build());
 		}
 	}
 
@@ -89,7 +89,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 			var builder = new ContainerBuilder();
 			register(builder, new IgnoreTestDoubles());
 			State.TestDoubles.RegisterFromPreviousContainer(builder);
-			State.Container = new AutofacThingy(builder.Build());
+			State.Container = new AutofacContainer(builder.Build());
 		}
 
 		_injector?.Source(State.Container);

@@ -2,7 +2,7 @@
 
 namespace Sinjector;
 
-public interface ITheContainerThingy : IDisposable
+public interface ITheContainer : IDisposable
 {
     object Resolve(Type type);
     T Resolve<T>();

@@ -73,7 +73,7 @@ public class WebApplicationFactoryTest : IIsolateSystem
 
 	public class WebApplicationFactoryTestAttribute : Attribute, IContainerBuild<ContainerBuilder>, IContainerSetup
 	{
-		public ITheContainerThingy ContainerBuild(Action<ContainerBuilder> registrations)
+		public ITheContainer ContainerBuild(Action<ContainerBuilder> registrations)
 		{
 			AutofacWebApplicationFactory<TestStartup> factory = null;
 
@@ -84,7 +84,7 @@ public class WebApplicationFactoryTest : IIsolateSystem
 			});
 			factory.CreateClient();
 
-			return new AutofacThingy(factory.Container);
+			return new AutofacContainer(factory.Container);
 		}
 
 		public void ContainerSetup(IContainerSetupContext context)

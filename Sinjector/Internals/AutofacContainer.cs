@@ -3,7 +3,7 @@ using Autofac;
 
 namespace Sinjector.Internals;
 
-public class AutofacThingy(IContainer container) : ITheContainerThingy
+public class AutofacContainer(IContainer container) : ITheContainer
 {
     public object Resolve(Type type) => 
         container.Resolve(type);
