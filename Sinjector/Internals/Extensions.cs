@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace Sinjector.Internals
+namespace Sinjector.Internals;
+
+internal static class Extensions
 {
-	internal static class Extensions
+	public static void ForEach<T>(this IEnumerable<T> source, Action<T> act)
 	{
-		public static void ForEach<T>(this IEnumerable<T> source, Action<T> act)
-		{
-			foreach (T item in source)
-				act(item);
-		}
+		foreach (T item in source)
+			act(item);
 	}
 }

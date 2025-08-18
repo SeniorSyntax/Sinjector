@@ -1,7 +1,6 @@
-namespace Sinjector
+namespace Sinjector;
+
+public interface ITestSetup
 {
-	public interface ITestSetup
-	{
-		void TestSetup();
-	}
+	void TestSetup();
 }

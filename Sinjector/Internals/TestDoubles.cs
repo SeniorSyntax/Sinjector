@@ -3,98 +3,97 @@ using System.Collections.Generic;
 using System.Linq;
 using Autofac;
 
-namespace Sinjector.Internals
+namespace Sinjector.Internals;
+
+internal class TestDoubles : ITestDoubles, IDisposable
 {
-	internal class TestDoubles : ITestDoubles, IDisposable
+	private readonly List<testDouble> _items = new List<testDouble>();
+
+	private class testDouble
 	{
-		private readonly List<testDouble> _items = new List<testDouble>();
+		public object instance;
+		public Type type;
+		public Type[] asTypes;
+	}
 
-		private class testDouble
+	public void Register(ContainerBuilder builder, object instance, Type type, Type[] asTypes)
+	{
+		var testDouble = new testDouble
 		{
-			public object instance;
-			public Type type;
-			public Type[] asTypes;
-		}
+			instance = instance,
+			type = type,
+			asTypes = asTypes
+		};
+		_items.Add(testDouble);
+		register(builder, testDouble);
+	}
 
-		public void Register(ContainerBuilder builder, object instance, Type type, Type[] asTypes)
+	private static void register(ContainerBuilder builder, testDouble testDouble)
+	{
+		var instance = testDouble.instance;
+		var type = testDouble.type;
+		var asTypes = testDouble.asTypes;
+
+		if (instance != null)
+			registerInstance(builder, instance, asTypes);
+		else
+			registerType(builder, type, asTypes);
+	}
+
+	public void KeepInstance(object instance, Type type)
+	{
+		_items
+			.Where(x => x.type == type)
+			.ForEach(x => { x.instance = instance; });
+	}
+
+	public void RegisterFromPreviousContainer(ContainerBuilder builder)
+	{
+		_items.ForEach(x =>
 		{
-			var testDouble = new testDouble
+			if (x.instance == null)
 			{
-				instance = instance,
-				type = type,
-				asTypes = asTypes
-			};
-			_items.Add(testDouble);
-			register(builder, testDouble);
-		}
-
-		private static void register(ContainerBuilder builder, testDouble testDouble)
-		{
-			var instance = testDouble.instance;
-			var type = testDouble.type;
-			var asTypes = testDouble.asTypes;
-
-			if (instance != null)
-				registerInstance(builder, instance, asTypes);
+				registerType(builder, x.type, x.asTypes);
+			}
 			else
-				registerType(builder, type, asTypes);
-		}
-
-		public void KeepInstance(object instance, Type type)
-		{
-			_items
-				.Where(x => x.type == type)
-				.ForEach(x => { x.instance = instance; });
-		}
-
-		public void RegisterFromPreviousContainer(ContainerBuilder builder)
-		{
-			_items.ForEach(x =>
 			{
-				if (x.instance == null)
-				{
-					registerType(builder, x.type, x.asTypes);
-				}
-				else
-				{
-					registerInstance(builder, x.instance, x.asTypes);
-				}
-			});
-		}
+				registerInstance(builder, x.instance, x.asTypes);
+			}
+		});
+	}
 
-		private static void registerType(ContainerBuilder builder, Type type, Type[] asTypes)
-		{
-			builder
-				.RegisterType(type)
-				.SingleInstance()
-				.AsSelf()
-				.As(asTypes)
-				.ExternallyOwned()
-				.PropertiesAutowired()
-				.OnActivated(c =>
-				{
-					c.Context.Resolve<ITestDoubles>()
-						.KeepInstance(c.Instance, type);
-				});
-		}
-
-		private static void registerInstance(ContainerBuilder builder, object instance, Type[] asTypes)
-		{
-			builder
-				.RegisterInstance(instance)
-				.AsSelf()
-				.As(asTypes)
-				.ExternallyOwned()
-				.PropertiesAutowired();
-		}
-
-		public void Dispose()
-		{
-			_items.ForEach(x =>
+	private static void registerType(ContainerBuilder builder, Type type, Type[] asTypes)
+	{
+		builder
+			.RegisterType(type)
+			.SingleInstance()
+			.AsSelf()
+			.As(asTypes)
+			.ExternallyOwned()
+			.PropertiesAutowired()
+			.OnActivated(c =>
 			{
-				var disposable = x.instance as IDisposable;
-				disposable?.Dispose();
+				c.Context.Resolve<ITestDoubles>()
+					.KeepInstance(c.Instance, type);
 			});
-		}
+	}
+
+	private static void registerInstance(ContainerBuilder builder, object instance, Type[] asTypes)
+	{
+		builder
+			.RegisterInstance(instance)
+			.AsSelf()
+			.As(asTypes)
+			.ExternallyOwned()
+			.PropertiesAutowired();
+	}
+
+	public void Dispose()
+	{
+		_items.ForEach(x =>
+		{
+			var disposable = x.instance as IDisposable;
+			disposable?.Dispose();
+		});
 	}
 }

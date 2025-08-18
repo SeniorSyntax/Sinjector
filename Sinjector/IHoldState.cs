@@ -1,7 +1,6 @@
-namespace Sinjector
+namespace Sinjector;
+
+public interface IHoldState
 {
-	public interface IHoldState
-	{
-		object State { get; set; }
-	}
+	object State { get; set; }
 }

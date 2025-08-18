@@ -1,11 +1,10 @@
 using Autofac.Builder;
 
-namespace Sinjector
+namespace Sinjector;
+
+public interface IContainerRegistrationSetup
 {
-	public interface IContainerRegistrationSetup
-	{
-		void ContainerRegistrationSetup<TLimit, TConcreteReflectionActivatorData, TRegistrationStyle>
-			(IRegistrationBuilder<TLimit, TConcreteReflectionActivatorData, TRegistrationStyle> registration) 
-			where TConcreteReflectionActivatorData : ConcreteReflectionActivatorData;
-	}
+	void ContainerRegistrationSetup<TLimit, TConcreteReflectionActivatorData, TRegistrationStyle>
+		(IRegistrationBuilder<TLimit, TConcreteReflectionActivatorData, TRegistrationStyle> registration) 
+		where TConcreteReflectionActivatorData : ConcreteReflectionActivatorData;
 }

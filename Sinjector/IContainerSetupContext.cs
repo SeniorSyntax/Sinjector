@@ -1,6 +1,5 @@
-namespace Sinjector
+namespace Sinjector;
+
+public interface IContainerSetupContext : IExtend, IIsolate
 {
-	public interface IContainerSetupContext : IExtend, IIsolate
-	{
-	}
 }

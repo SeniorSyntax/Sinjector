@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 
-namespace Sinjector
+namespace Sinjector;
+
+public interface IQueryAttributes
 {
-	public interface IQueryAttributes
-	{
-		IEnumerable<T> QueryAllAttributes<T>();
-	}
+	IEnumerable<T> QueryAllAttributes<T>();
 }

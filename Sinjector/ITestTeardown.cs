@@ -1,7 +1,6 @@
-namespace Sinjector
+namespace Sinjector;
+
+public interface ITestTeardown
 {
-	public interface ITestTeardown
-	{
-		void TestTeardown();
-	}
+	void TestTeardown();
 }

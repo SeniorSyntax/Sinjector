@@ -1,7 +1,6 @@
-namespace Sinjector
+namespace Sinjector;
+
+public interface IContainerSetup
 {
-	public interface IContainerSetup
-	{
-		void ContainerSetup(IContainerSetupContext context);
-	}
+	void ContainerSetup(IContainerSetupContext context);
 }

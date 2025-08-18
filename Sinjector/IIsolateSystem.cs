@@ -1,7 +1,6 @@
-namespace Sinjector
+namespace Sinjector;
+
+public interface IIsolateSystem
 {
-	public interface IIsolateSystem
-	{
-		void Isolate(IIsolate isolate);
-	}
+	void Isolate(IIsolate isolate);
 }

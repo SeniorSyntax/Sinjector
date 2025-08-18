@@ -2,105 +2,104 @@ using System;
 using System.Collections.Generic;
 using Autofac;
 
-namespace Sinjector.Internals
+namespace Sinjector.Internals;
+
+internal class ContainerSetupContext : IContainerSetupContext
 {
-	internal class ContainerSetupContext : IContainerSetupContext
+	private readonly ITestDoubles _testDoubles;
+	private readonly ContainerBuilder _builder;
+	private readonly ExtensionQuerier _extensionQuerier;
+
+	internal ContainerSetupContext(ITestDoubles testDoubles, ContainerBuilder builder, ExtensionQuerier extensionQuerier)
 	{
-		private readonly ITestDoubles _testDoubles;
-		private readonly ContainerBuilder _builder;
-		private readonly ExtensionQuerier _extensionQuerier;
+		_testDoubles = testDoubles;
+		_builder = builder;
+		_extensionQuerier = extensionQuerier;
+	}
 
-		internal ContainerSetupContext(ITestDoubles testDoubles, ContainerBuilder builder, ExtensionQuerier extensionQuerier)
+	public object State { get; set; }
+
+	public void AddService<TService>(bool instancePerLifeTimeScope = false)
+	{
+		if (instancePerLifeTimeScope)
 		{
-			_testDoubles = testDoubles;
-			_builder = builder;
-			_extensionQuerier = extensionQuerier;
+			var registration = _builder
+				.RegisterType<TService>()
+				.AsSelf()
+				.AsImplementedInterfaces()
+				.InstancePerLifetimeScope();
+			_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
 		}
-
-		public object State { get; set; }
-
-		public void AddService<TService>(bool instancePerLifeTimeScope = false)
+		else
 		{
-			if (instancePerLifeTimeScope)
-			{
-				var registration = _builder
-					.RegisterType<TService>()
-					.AsSelf()
-					.AsImplementedInterfaces()
-					.InstancePerLifetimeScope();
-				_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
-			}
-			else
-			{
-				var registration = _builder
-					.RegisterType<TService>()
-					.AsSelf()
-					.AsImplementedInterfaces()
-					.SingleInstance();
-				_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
-			}
-		}
-
-		public void AddService<TService>(TService instance) where TService : class
-		{
-			_builder
-				.RegisterInstance(instance)
+			var registration = _builder
+				.RegisterType<TService>()
 				.AsSelf()
 				.AsImplementedInterfaces()
 				.SingleInstance();
+			_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
 		}
+	}
 
-		public void AddService(Type type, bool instancePerLifeTimeScope = false)
+	public void AddService<TService>(TService instance) where TService : class
+	{
+		_builder
+			.RegisterInstance(instance)
+			.AsSelf()
+			.AsImplementedInterfaces()
+			.SingleInstance();
+	}
+
+	public void AddService(Type type, bool instancePerLifeTimeScope = false)
+	{
+		if (instancePerLifeTimeScope)
 		{
-			if (instancePerLifeTimeScope)
-			{
-				var registration = _builder
-					.RegisterType(type)
-					.AsSelf()
-					.AsImplementedInterfaces()
-					.InstancePerLifetimeScope();
-				_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
-			}
-			else
-			{
-				var registration = _builder
-					.RegisterType(type)
-					.AsSelf()
-					.AsImplementedInterfaces()
-					.SingleInstance();
-				_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
-			}
+			var registration = _builder
+				.RegisterType(type)
+				.AsSelf()
+				.AsImplementedInterfaces()
+				.InstancePerLifetimeScope();
+			_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
 		}
+		else
+		{
+			var registration = _builder
+				.RegisterType(type)
+				.AsSelf()
+				.AsImplementedInterfaces()
+				.SingleInstance();
+			_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
+		}
+	}
 
-		public void AddModule(Module module) =>
-			_builder.RegisterModule(module);
+	public void AddModule(Module module) =>
+		_builder.RegisterModule(module);
 
-		public ITestDoubleFor UseTestDouble<TTestDouble>() where TTestDouble : class =>
-			new testDoubleFor(_testDoubles, _builder, typeof(TTestDouble), null);
+	public ITestDoubleFor UseTestDouble<TTestDouble>() where TTestDouble : class =>
+		new testDoubleFor(_testDoubles, _builder, typeof(TTestDouble), null);
 
-		public ITestDoubleFor UseTestDouble<TTestDouble>(TTestDouble instance) where TTestDouble : class =>
-			new testDoubleFor(_testDoubles, _builder, null, instance);
+	public ITestDoubleFor UseTestDouble<TTestDouble>(TTestDouble instance) where TTestDouble : class =>
+		new testDoubleFor(_testDoubles, _builder, null, instance);
 
-		public ITestDoubleFor UseTestDoubleForType(Type type) =>
-			new testDoubleFor(_testDoubles, _builder, type, null);
+	public ITestDoubleFor UseTestDoubleForType(Type type) =>
+		new testDoubleFor(_testDoubles, _builder, type, null);
 
-		public IEnumerable<T> QueryAllAttributes<T>() =>
-			_extensionQuerier.Query<T>();
+	public IEnumerable<T> QueryAllAttributes<T>() =>
+		_extensionQuerier.Query<T>();
 		
-		private class testDoubleFor(ITestDoubles testDoubles, ContainerBuilder builder, Type type, object instance)
-			: ITestDoubleFor
-		{
-			public void For<T>() => register(typeof(T));
-			public void For<T1, T2>() => register(typeof(T1), typeof(T2));
-			public void For<T1, T2, T3>() => register(typeof(T1), typeof(T2), typeof(T3));
-			public void For<T1, T2, T3, T4>() => register(typeof(T1), typeof(T2), typeof(T3), typeof(T4));
-			public void For<T1, T2, T3, T4, T5>() => register(typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5));
-			public void For<T1, T2, T3, T4, T5, T6>() => register(typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6));
-			public void For<T1, T2, T3, T4, T5, T6, T7>() => register(typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7));
-			public void For(Type type) => register(type);
+	private class testDoubleFor(ITestDoubles testDoubles, ContainerBuilder builder, Type type, object instance)
+		: ITestDoubleFor
+	{
+		public void For<T>() => register(typeof(T));
+		public void For<T1, T2>() => register(typeof(T1), typeof(T2));
+		public void For<T1, T2, T3>() => register(typeof(T1), typeof(T2), typeof(T3));
+		public void For<T1, T2, T3, T4>() => register(typeof(T1), typeof(T2), typeof(T3), typeof(T4));
+		public void For<T1, T2, T3, T4, T5>() => register(typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5));
+		public void For<T1, T2, T3, T4, T5, T6>() => register(typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6));
+		public void For<T1, T2, T3, T4, T5, T6, T7>() => register(typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7));
+		public void For(Type type) => register(type);
 
-			private void register(params Type[] asTypes) => 
-				testDoubles.Register(builder, instance, type, asTypes);
-		}
+		private void register(params Type[] asTypes) => 
+			testDoubles.Register(builder, instance, type, asTypes);
 	}
 }

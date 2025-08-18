@@ -1,8 +1,7 @@
-namespace Sinjector
+namespace Sinjector;
+
+public interface ISinjectorTestContext
 {
-	public interface ISinjectorTestContext
-	{
-		void SimulateShutdown();
-		void SimulateRestart();
-	}
+	void SimulateShutdown();
+	void SimulateRestart();
 }

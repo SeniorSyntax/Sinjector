@@ -1,7 +1,6 @@
-namespace Sinjector
+namespace Sinjector;
+
+public interface IExtendSystem
 {
-	public interface IExtendSystem
-	{
-		void Extend(IExtend extend);
-	}
+	void Extend(IExtend extend);
 }

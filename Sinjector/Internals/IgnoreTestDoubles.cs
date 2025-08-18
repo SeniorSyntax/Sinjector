@@ -1,20 +1,19 @@
 using System;
 using Autofac;
 
-namespace Sinjector.Internals
+namespace Sinjector.Internals;
+
+internal class IgnoreTestDoubles : ITestDoubles
 {
-    internal class IgnoreTestDoubles : ITestDoubles
+    public void Register(ContainerBuilder builder, object instance, Type type, Type[] asTypes)
     {
-        public void Register(ContainerBuilder builder, object instance, Type type, Type[] asTypes)
-        {
-        }
+    }
 
-        public void RegisterFromPreviousContainer(ContainerBuilder builder)
-        {
-        }
+    public void RegisterFromPreviousContainer(ContainerBuilder builder)
+    {
+    }
 
-        public void KeepInstance(object instance, Type type)
-        {
-        }
+    public void KeepInstance(object instance, Type type)
+    {
     }
 }
