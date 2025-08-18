@@ -80,7 +80,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 			State.Container = a.ContainerBuild(builder =>
 			{
 				register(builder, new IgnoreTestDoubles());
-				State.TestDoubles.RegisterFromPreviousContainer(builder.ContainerBuilder);
+				State.TestDoubles.RegisterFromPreviousContainer(builder);
 			});
 		});
 
@@ -88,7 +88,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 		{
 			var builder = new AutofacBuilder(new ContainerBuilder());
 			register(builder, new IgnoreTestDoubles());
-			State.TestDoubles.RegisterFromPreviousContainer(builder.ContainerBuilder);
+			State.TestDoubles.RegisterFromPreviousContainer(builder);
 			State.Container = builder.Build();
 		}
 

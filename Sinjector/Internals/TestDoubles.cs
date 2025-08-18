@@ -16,7 +16,7 @@ internal class TestDoubles : ITestDoubles, IDisposable
 		public Type[] asTypes;
 	}
 
-	public void Register(ContainerBuilder builder, object instance, Type type, Type[] asTypes)
+	public void Register(ITheContainerBuilder builder, object instance, Type type, Type[] asTypes)
 	{
 		var testDouble = new testDouble
 		{
@@ -28,7 +28,7 @@ internal class TestDoubles : ITestDoubles, IDisposable
 		register(builder, testDouble);
 	}
 
-	private static void register(ContainerBuilder builder, testDouble testDouble)
+	private static void register(ITheContainerBuilder builder, testDouble testDouble)
 	{
 		var instance = testDouble.instance;
 		var type = testDouble.type;
@@ -47,7 +47,7 @@ internal class TestDoubles : ITestDoubles, IDisposable
 			.ForEach(x => { x.instance = instance; });
 	}
 
-	public void RegisterFromPreviousContainer(ContainerBuilder builder)
+	public void RegisterFromPreviousContainer(ITheContainerBuilder builder)
 	{
 		_items.ForEach(x =>
 		{
@@ -62,9 +62,9 @@ internal class TestDoubles : ITestDoubles, IDisposable
 		});
 	}
 
-	private static void registerType(ContainerBuilder builder, Type type, Type[] asTypes)
+	private static void registerType(ITheContainerBuilder builder, Type type, Type[] asTypes)
 	{
-		builder
+		builder.ContainerBuilder
 			.RegisterType(type)
 			.SingleInstance()
 			.AsSelf()
@@ -78,9 +78,9 @@ internal class TestDoubles : ITestDoubles, IDisposable
 			});
 	}
 
-	private static void registerInstance(ContainerBuilder builder, object instance, Type[] asTypes)
+	private static void registerInstance(ITheContainerBuilder builder, object instance, Type[] asTypes)
 	{
-		builder
+		builder.ContainerBuilder
 			.RegisterInstance(instance)
 			.AsSelf()
 			.As(asTypes)

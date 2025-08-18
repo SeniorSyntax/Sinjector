@@ -79,15 +79,15 @@ internal class ContainerSetupContext : IContainerSetupContext
 		UseTestDoubleForType(typeof(TTestDouble));
 
 	public ITestDoubleFor UseTestDouble<TTestDouble>(TTestDouble instance) where TTestDouble : class =>
-		new testDoubleFor(_testDoubles, _builder.ContainerBuilder, null, instance);
+		new testDoubleFor(_testDoubles, _builder, null, instance);
 
 	public ITestDoubleFor UseTestDoubleForType(Type type) =>
-		new testDoubleFor(_testDoubles, _builder.ContainerBuilder, type, null);
+		new testDoubleFor(_testDoubles, _builder, type, null);
 
 	public IEnumerable<T> QueryAllAttributes<T>() =>
 		_extensionQuerier.Query<T>();
 		
-	private class testDoubleFor(ITestDoubles testDoubles, ContainerBuilder builder, Type type, object instance)
+	private class testDoubleFor(ITestDoubles testDoubles, ITheContainerBuilder builder, Type type, object instance)
 		: ITestDoubleFor
 	{
 		public void For<T>() => register(typeof(T));
