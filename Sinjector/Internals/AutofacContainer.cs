@@ -3,14 +3,10 @@ using Autofac;
 
 namespace Sinjector.Internals;
 
-public class AutofacBuilder : ITheContainerBuilder
+public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
 {
-    public AutofacBuilder(ContainerBuilder builder)
-    {
-        ContainerBuilder = builder;
-    }
-    
-    public ContainerBuilder ContainerBuilder { get; } = new ();
+    public ContainerBuilder ContainerBuilder { get; } = builder;
+
     public ITheContainer Build()
     {
         return new AutofacContainer(ContainerBuilder.Build());
