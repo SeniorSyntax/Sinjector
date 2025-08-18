@@ -59,14 +59,14 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 		{
 			State.Container = a.ContainerBuild(builder =>
 			{
-				register(builder, () => new ContainerAdaptor(State.TestDoubles, builder, _extensions));
+				register(builder, State.TestDoubles);
 			});
 		});
 
 		if (State.Container == null)
 		{
 			var builder = new ContainerBuilder();
-			register(builder, () => new ContainerAdaptor(State.TestDoubles, builder, _extensions));
+			register(builder, State.TestDoubles);
 			State.Container = new AutofacThingy(builder.Build());
 		}
 	}
@@ -79,7 +79,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 		{
 			State.Container = a.ContainerBuild(builder =>
 			{
-				register(builder, () => new ContainerAdaptor(new IgnoreTestDoubles(), builder, _extensions));
+				register(builder, new IgnoreTestDoubles());
 				State.TestDoubles.RegisterFromPreviousContainer(builder);
 			});
 		});
@@ -87,7 +87,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 		if (State.Container == null)
 		{
 			var builder = new ContainerBuilder();
-			register(builder, () => new ContainerAdaptor(new IgnoreTestDoubles(), builder, _extensions));
+			register(builder, new IgnoreTestDoubles());
 			State.TestDoubles.RegisterFromPreviousContainer(builder);
 			State.Container = new AutofacThingy(builder.Build());
 		}
@@ -95,13 +95,11 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 		_injector?.Source(State.Container);
 	}
 
-	private void register(ContainerBuilder builder, Func<ContainerAdaptor> adaptor)
+	private void register(ContainerBuilder builder, ITestDoubles testDoubles)
 	{
 		builder.RegisterInstance(State.TestDoubles).ExternallyOwned();
-
-		var containerAdaptor = adaptor.Invoke();
-
-		var context = new ContainerSetupContext(containerAdaptor, _extensions);
+		
+		var context = new ContainerSetupContext(testDoubles, builder, _extensions);
 		context.AddService(this);
 
 		InvokeExtensions<IContainerSetup>(x => x.ContainerSetup(context));
