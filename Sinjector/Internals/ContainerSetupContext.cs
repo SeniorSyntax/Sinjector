@@ -7,10 +7,10 @@ namespace Sinjector.Internals;
 internal class ContainerSetupContext : IContainerSetupContext
 {
 	private readonly ITestDoubles _testDoubles;
-	private readonly ContainerBuilder _builder;
+	private readonly ITheContainerBuilder _builder;
 	private readonly ExtensionQuerier _extensionQuerier;
 
-	internal ContainerSetupContext(ITestDoubles testDoubles, ContainerBuilder builder, ExtensionQuerier extensionQuerier)
+	internal ContainerSetupContext(ITestDoubles testDoubles, ITheContainerBuilder builder, ExtensionQuerier extensionQuerier)
 	{
 		_testDoubles = testDoubles;
 		_builder = builder;
@@ -23,7 +23,7 @@ internal class ContainerSetupContext : IContainerSetupContext
 	{
 		if (instancePerLifeTimeScope)
 		{
-			var registration = _builder
+			var registration = _builder.ContainerBuilder
 				.RegisterType<TService>()
 				.AsSelf()
 				.AsImplementedInterfaces()
@@ -32,7 +32,7 @@ internal class ContainerSetupContext : IContainerSetupContext
 		}
 		else
 		{
-			var registration = _builder
+			var registration = _builder.ContainerBuilder
 				.RegisterType<TService>()
 				.AsSelf()
 				.AsImplementedInterfaces()
@@ -43,7 +43,7 @@ internal class ContainerSetupContext : IContainerSetupContext
 
 	public void AddService<TService>(TService instance) where TService : class
 	{
-		_builder
+		_builder.ContainerBuilder
 			.RegisterInstance(instance)
 			.AsSelf()
 			.AsImplementedInterfaces()
@@ -54,7 +54,7 @@ internal class ContainerSetupContext : IContainerSetupContext
 	{
 		if (instancePerLifeTimeScope)
 		{
-			var registration = _builder
+			var registration = _builder.ContainerBuilder
 				.RegisterType(type)
 				.AsSelf()
 				.AsImplementedInterfaces()
@@ -63,7 +63,7 @@ internal class ContainerSetupContext : IContainerSetupContext
 		}
 		else
 		{
-			var registration = _builder
+			var registration = _builder.ContainerBuilder
 				.RegisterType(type)
 				.AsSelf()
 				.AsImplementedInterfaces()
@@ -73,16 +73,16 @@ internal class ContainerSetupContext : IContainerSetupContext
 	}
 
 	public void AddModule(Module module) =>
-		_builder.RegisterModule(module);
+		_builder.ContainerBuilder.RegisterModule(module);
 
 	public ITestDoubleFor UseTestDouble<TTestDouble>() where TTestDouble : class =>
 		UseTestDoubleForType(typeof(TTestDouble));
 
 	public ITestDoubleFor UseTestDouble<TTestDouble>(TTestDouble instance) where TTestDouble : class =>
-		new testDoubleFor(_testDoubles, _builder, null, instance);
+		new testDoubleFor(_testDoubles, _builder.ContainerBuilder, null, instance);
 
 	public ITestDoubleFor UseTestDoubleForType(Type type) =>
-		new testDoubleFor(_testDoubles, _builder, type, null);
+		new testDoubleFor(_testDoubles, _builder.ContainerBuilder, type, null);
 
 	public IEnumerable<T> QueryAllAttributes<T>() =>
 		_extensionQuerier.Query<T>();

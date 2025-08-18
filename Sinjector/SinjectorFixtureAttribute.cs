@@ -55,7 +55,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 
 	private void buildContainer()
 	{
-		InvokeExtensions<IContainerBuild<ContainerBuilder>>(a =>
+		InvokeExtensions<IContainerBuild<ITheContainerBuilder>>(a =>
 		{
 			State.Container = a.ContainerBuild(builder =>
 			{
@@ -65,9 +65,9 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 
 		if (State.Container == null)
 		{
-			var builder = new ContainerBuilder();
+			var builder = new AutofacBuilder(new ContainerBuilder());
 			register(builder, State.TestDoubles);
-			State.Container = new AutofacContainer(builder.Build());
+			State.Container = builder.Build();
 		}
 	}
 
@@ -75,29 +75,29 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 	{
 		State.Container = null;
 
-		InvokeExtensions<IContainerBuild<ContainerBuilder>>(a =>
+		InvokeExtensions<IContainerBuild<ITheContainerBuilder>>(a =>
 		{
 			State.Container = a.ContainerBuild(builder =>
 			{
 				register(builder, new IgnoreTestDoubles());
-				State.TestDoubles.RegisterFromPreviousContainer(builder);
+				State.TestDoubles.RegisterFromPreviousContainer(builder.ContainerBuilder);
 			});
 		});
 
 		if (State.Container == null)
 		{
-			var builder = new ContainerBuilder();
+			var builder = new AutofacBuilder(new ContainerBuilder());
 			register(builder, new IgnoreTestDoubles());
-			State.TestDoubles.RegisterFromPreviousContainer(builder);
-			State.Container = new AutofacContainer(builder.Build());
+			State.TestDoubles.RegisterFromPreviousContainer(builder.ContainerBuilder);
+			State.Container = builder.Build();
 		}
 
 		_injector?.Source(State.Container);
 	}
 
-	private void register(ContainerBuilder builder, ITestDoubles testDoubles)
+	private void register(ITheContainerBuilder builder, ITestDoubles testDoubles)
 	{
-		builder.RegisterInstance(State.TestDoubles).ExternallyOwned();
+		builder.ContainerBuilder.RegisterInstance(State.TestDoubles).ExternallyOwned();
 		
 		var context = new ContainerSetupContext(testDoubles, builder, _extensions);
 		context.AddService(this);
