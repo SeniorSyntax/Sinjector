@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Autofac;
 
 namespace Sinjector.Internals;
 
@@ -34,8 +33,8 @@ internal class ContainerSetupContext : IContainerSetupContext
 		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.RegistrationCallback(registration));
 	}
 
-	public void AddModule(Module module) =>
-		_builder.ContainerBuilder.RegisterModule(module);
+	public void AddModule(object module) =>
+		_builder.AddModule(module);
 
 	public ITestDoubleFor UseTestDouble<TTestDouble>() where TTestDouble : class =>
 		UseTestDoubleForType(typeof(TTestDouble));

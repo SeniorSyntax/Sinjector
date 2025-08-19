@@ -97,7 +97,8 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 
 	private void register(ITheContainerBuilder builder, ITestDoubles testDoubles)
 	{
-		builder.ContainerBuilder.RegisterInstance(State.TestDoubles).ExternallyOwned();
+		//fix me
+		((AutofacBuilder)builder).ContainerBuilder.RegisterInstance(State.TestDoubles).ExternallyOwned();
 		
 		var context = new ContainerSetupContext(testDoubles, builder, _extensions);
 		context.AddService(this);

@@ -1,11 +1,13 @@
 using System;
 using Autofac;
+using Autofac.Core;
 
 namespace Sinjector.Internals;
 
 //should be public I think
 public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
 {
+    //remove me
     public ContainerBuilder ContainerBuilder { get; } = builder;
 
     public void RegisterTestDoubleType(Type type, Type[] asTypes)
@@ -72,7 +74,10 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
             .AsImplementedInterfaces()
             .SingleInstance();
     }
-    
+
+    public void AddModule(object module) => 
+        builder.RegisterModule((IModule)module);
+
     public ITheContainer Build() => 
         new AutofacContainer(ContainerBuilder.Build());
 }
