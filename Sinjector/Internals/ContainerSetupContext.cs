@@ -21,7 +21,7 @@ internal class ContainerSetupContext : IContainerSetupContext
 
 	public void AddService<TService>(bool instancePerLifeTimeScope = false)
 	{
-		var registration = _builder.AddService<TService>();
+		var registration = _builder.AddService<TService>(instancePerLifeTimeScope);
 		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.RegistrationCallback(registration));
 	}
 
