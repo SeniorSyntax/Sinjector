@@ -34,7 +34,7 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
             .PropertiesAutowired();
     }
     
-    public object AddService<TService>(bool instancePerLifeTimeScope = false)
+    public object AddService<TService>(bool instancePerLifeTimeScope)
     {
         var registration = builder
             .RegisterType<TService>()
@@ -49,7 +49,7 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
         return registration;
     }
 
-    public object AddService(Type type, bool instancePerLifeTimeScope = false)
+    public object AddService(Type type, bool instancePerLifeTimeScope)
     {
         var registration = builder
             .RegisterType(type)
