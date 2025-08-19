@@ -31,7 +31,7 @@ internal class ContainerSetupContext : IContainerSetupContext
 		else
 			registration.SingleInstance();
 		
-		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
+		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.RegistrationCallback(registration));
 	}
 
 	public void AddService<TService>(TService instance) where TService : class
@@ -55,7 +55,7 @@ internal class ContainerSetupContext : IContainerSetupContext
 		else
 			registration.SingleInstance();
 		
-		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.ContainerRegistrationSetup(registration));
+		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.RegistrationCallback(registration));
 	}
 
 	public void AddModule(Module module) =>
