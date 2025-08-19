@@ -10,6 +10,9 @@ public interface ITheContainerBuilder
 
     void RegisterTestDoubleType(Type type, Type[] asTypes);
     void RegisterTestDoubleInstance(object instance, Type[] asTypes);
+    object AddService<TService>(bool instancePerLifeTimeScope = false);
+    object AddService(Type type, bool instancePerLifeTimeScope = false);
+    void AddService<TService>(TService instance) where TService : class;
 }
 
 public interface ITheContainer : IDisposable

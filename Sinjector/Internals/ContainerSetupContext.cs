@@ -21,40 +21,16 @@ internal class ContainerSetupContext : IContainerSetupContext
 
 	public void AddService<TService>(bool instancePerLifeTimeScope = false)
 	{
-		var registration = _builder.ContainerBuilder
-			.RegisterType<TService>()
-			.AsSelf()
-			.AsImplementedInterfaces();
-			
-		if (instancePerLifeTimeScope)
-			registration.InstancePerLifetimeScope();
-		else
-			registration.SingleInstance();
-		
+		var registration = _builder.AddService<TService>();
 		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.RegistrationCallback(registration));
 	}
 
-	public void AddService<TService>(TService instance) where TService : class
-	{
-		_builder.ContainerBuilder
-			.RegisterInstance(instance)
-			.AsSelf()
-			.AsImplementedInterfaces()
-			.SingleInstance();
-	}
+	public void AddService<TService>(TService instance) where TService : class => 
+		_builder.AddService(instance);
 
 	public void AddService(Type type, bool instancePerLifeTimeScope = false)
 	{
-		var registration = _builder.ContainerBuilder
-			.RegisterType(type)
-			.AsSelf()
-			.AsImplementedInterfaces();
-
-		if (instancePerLifeTimeScope)
-			registration.InstancePerLifetimeScope();
-		else
-			registration.SingleInstance();
-		
+		var registration = _builder.AddService(type, instancePerLifeTimeScope);
 		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.RegistrationCallback(registration));
 	}
 

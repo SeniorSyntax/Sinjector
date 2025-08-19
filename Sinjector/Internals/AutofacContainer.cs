@@ -34,6 +34,44 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
             .PropertiesAutowired();
     }
     
+    public object AddService<TService>(bool instancePerLifeTimeScope = false)
+    {
+        var registration = builder
+            .RegisterType<TService>()
+            .AsSelf()
+            .AsImplementedInterfaces();
+			
+        if (instancePerLifeTimeScope)
+            registration.InstancePerLifetimeScope();
+        else
+            registration.SingleInstance();
+
+        return registration;
+    }
+
+    public object AddService(Type type, bool instancePerLifeTimeScope = false)
+    {
+        var registration = builder
+            .RegisterType(type)
+            .AsSelf()
+            .AsImplementedInterfaces();
+
+        if (instancePerLifeTimeScope)
+            registration.InstancePerLifetimeScope();
+        else
+            registration.SingleInstance();
+
+        return registration;
+    }
+    
+    public void AddService<TService>(TService instance) where TService : class
+    {
+        builder
+            .RegisterInstance(instance)
+            .AsSelf()
+            .AsImplementedInterfaces()
+            .SingleInstance();
+    }
     
     public ITheContainer Build() => 
         new AutofacContainer(ContainerBuilder.Build());
