@@ -1,15 +1,16 @@
+using System;
 using Autofac;
 using NUnit.Framework;
 using SharpTestsEx;
 
 namespace Sinjector.Test;
 
-[TestFixture]
 [TestSystem]
 public class RestartSimulationTest
 {
 	public TestService Service;
 	public FakeService FakedService;
+	public IFakeDisposeService FakedDisposeService;
 	public ISinjectorTestContext Context;
 
 	[Test]
@@ -30,7 +31,24 @@ public class RestartSimulationTest
 		first.Should().Be.SameInstanceAs(second);
 	}
 
-	public class TestSystemAttribute : SinjectorFixtureAttribute, IContainerSetup, IIsolateSystem, IExtendSystem
+	[Test]
+	public void ShouldGetSameFakeDisposeInstanceAfterRestart()
+	{
+		var first = FakedDisposeService;
+		Context.SimulateRestart();
+		var second = FakedDisposeService;
+		first.Should().Be.SameInstanceAs(second);
+	}
+	
+	[Test, Explicit]
+	public void ShouldNotCallDisposeOnFakeAtRestart()
+	{
+		FakedDisposeService.Value = 37;
+		Context.SimulateRestart();
+		FakedDisposeService.Value.Should().Be(37);
+	}
+
+	public class TestSystemAttribute : SinjectorFixtureAttribute, IContainerSetup, IIsolateSystem
 	{
 		public void ContainerSetup(IContainerSetupContext context)
 		{
@@ -40,11 +58,7 @@ public class RestartSimulationTest
 		public void Isolate(IIsolate isolate)
 		{
 			isolate.UseTestDouble<FakeService>().For<IFakedService>();
-		}
-
-		public void Extend(IExtend extend)
-		{
-			extend.AddService<TestExtensionService>();
+			isolate.UseTestDouble<FakeDisposeService>().For<IFakeDisposeService>();
 		}
 
 		public class TestSystemModule : Module
@@ -57,11 +71,19 @@ public class RestartSimulationTest
 	}
 
 	public class TestService;
-
-	public class TestExtensionService;
 	
 	public interface IFakedService;
 
 	public class FakeService : IFakedService;
 
+	public interface IFakeDisposeService
+	{
+		int Value { get; set; }
+	}
+	public class FakeDisposeService : IFakeDisposeService, IDisposable
+	{
+		public int Value { get; set; }
+		public void Dispose() => Value = 0;
+	}
+	
 }
