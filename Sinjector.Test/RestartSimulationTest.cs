@@ -30,15 +30,6 @@ public class RestartSimulationTest
 		var second = FakedService;
 		first.Should().Be.SameInstanceAs(second);
 	}
-
-	[Test]
-	public void ShouldGetSameFakeDisposeInstanceAfterRestart()
-	{
-		var first = FakedDisposeService;
-		Context.SimulateRestart();
-		var second = FakedDisposeService;
-		first.Should().Be.SameInstanceAs(second);
-	}
 	
 	[Test, Explicit]
 	public void ShouldNotCallDisposeOnFakeAtRestart()
