@@ -34,7 +34,7 @@ internal class TestDoubles : ITestDoubles, IDisposable
 		var asTypes = testDouble.asTypes;
 
 		if (instance != null)
-			builder.RegisterTestDoubleInstance(instance, asTypes);
+			builder.RegisterTestDoubleInstance(instance, asTypes, true);
 		else
 			builder.RegisterTestDoubleType(type, asTypes);
 	}
@@ -56,7 +56,7 @@ internal class TestDoubles : ITestDoubles, IDisposable
 			}
 			else
 			{
-				builder.RegisterTestDoubleInstance(x.instance, x.asTypes);
+				builder.RegisterTestDoubleInstance(x.instance, x.asTypes, true);
 			}
 		});
 	}

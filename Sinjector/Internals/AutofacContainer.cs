@@ -26,14 +26,19 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
             });
     }
 
-    public void RegisterTestDoubleInstance(object instance, Type[] asTypes)
+    //fix me somehow
+    public void RegisterTestDoubleInstance(object instance, Type[] asTypes, bool propHack)
     {
-        builder
+        var reg = builder
             .RegisterInstance(instance)
             .AsSelf()
             .As(asTypes)
-            .ExternallyOwned()
-            .PropertiesAutowired();
+            .ExternallyOwned();
+        
+        //remove me? //////////
+        if (propHack)
+            reg.PropertiesAutowired();
+        //////////////////////
     }
     
     public object AddService<TService>(bool instancePerLifeTimeScope)

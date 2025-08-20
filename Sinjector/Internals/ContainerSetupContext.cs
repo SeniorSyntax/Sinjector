@@ -34,7 +34,7 @@ internal class ContainerSetupContext : IContainerSetupContext
 	}
 
 	internal void AddTestDoubles(ITestDoubles testDoubles) => 
-		_builder.RegisterTestDoubleInstance(testDoubles, [typeof(ITestDoubles)]);
+		_builder.RegisterTestDoubleInstance(testDoubles, [typeof(ITestDoubles)], false);
 
 	public void AddModule(object module) =>
 		_builder.AddModule(module);

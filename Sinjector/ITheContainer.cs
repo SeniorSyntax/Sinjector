@@ -5,7 +5,7 @@ namespace Sinjector;
 public interface ITheContainerBuilder
 {
     void RegisterTestDoubleType(Type type, Type[] asTypes);
-    void RegisterTestDoubleInstance(object instance, Type[] asTypes);
+    void RegisterTestDoubleInstance(object instance, Type[] asTypes, bool propHack);
     object AddService<TService>(bool instancePerLifeTimeScope);
     object AddService(Type type, bool instancePerLifeTimeScope);
     void AddService<TService>(TService instance) where TService : class;

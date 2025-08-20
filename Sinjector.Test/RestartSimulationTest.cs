@@ -31,7 +31,7 @@ public class RestartSimulationTest
 		first.Should().Be.SameInstanceAs(second);
 	}
 	
-	[Test, Explicit]
+	[Test]
 	public void ShouldNotCallDisposeOnFakeAtRestart()
 	{
 		FakedDisposeService.Value = 37;
