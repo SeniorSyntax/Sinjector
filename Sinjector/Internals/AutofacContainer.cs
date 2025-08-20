@@ -7,9 +7,6 @@ namespace Sinjector.Internals;
 //should be public I think
 public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
 {
-    //remove me
-    public ContainerBuilder ContainerBuilder { get; } = builder;
-
     public void RegisterTestDoubleType(Type type, Type[] asTypes)
     {
         builder
@@ -84,7 +81,7 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
         builder.RegisterModule((IModule)module);
 
     public ITheContainer Build() => 
-        new AutofacContainer(ContainerBuilder.Build());
+        new AutofacContainer(builder.Build());
 }
 
 //should be internal
