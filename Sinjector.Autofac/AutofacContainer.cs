@@ -3,7 +3,7 @@ using Autofac;
 using Autofac.Core;
 using Sinjector.Internals;
 
-namespace Sinjector.Autofac;
+namespace Sinjector;
 
 public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
 {

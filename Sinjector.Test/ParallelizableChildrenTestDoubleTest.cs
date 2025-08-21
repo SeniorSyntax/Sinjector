@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Sinjector.Autofac;
 
 namespace Sinjector.Test;
 

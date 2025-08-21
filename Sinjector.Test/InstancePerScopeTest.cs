@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using NUnit.Framework;
 using SharpTestsEx;
-using Sinjector.Autofac;
 
 namespace Sinjector.Test;
 

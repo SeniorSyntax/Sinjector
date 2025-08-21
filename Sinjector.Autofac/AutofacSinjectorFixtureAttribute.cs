@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace Sinjector.Autofac;
+namespace Sinjector;
 
 public class AutofacSinjectorFixtureAttribute : SinjectorFixtureAttribute
 {

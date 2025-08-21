@@ -2,8 +2,12 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
+        <RootNamespace>Sinjector</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
       <ProjectReference Include="..\Sinjector\Sinjector.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Autofac" Version="7.1.0" />
     </ItemGroup>
 </Project>

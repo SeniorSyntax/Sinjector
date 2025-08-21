@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using Sinjector.Autofac;
 
 namespace Sinjector.Test;
 
