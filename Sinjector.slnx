@@ -5,6 +5,6 @@
     <File Path="README.md" />
   </Folder>
   <Project Path="Sinjector.Test/Sinjector.Autofac.Test.csproj" />
-  <Project Path="Sinjector.Test\Sinjector.Net.Test.csproj" Type="Classic C#" />
+  <Project Path="Sinjector.Test/Sinjector.Net.Test.csproj" />
   <Project Path="Sinjector/Sinjector.csproj" />
 </Solution>
