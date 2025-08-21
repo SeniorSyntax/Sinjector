@@ -1,7 +1,6 @@
 <Project>
     <PropertyGroup>
         <BaseIntermediateOutputPath>obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
-        <RootNamespace>Sinjector.Net.Test</RootNamespace>
     </PropertyGroup>
     <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
     
