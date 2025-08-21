@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Autofac;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework.Internal;
-using Sinjector.Autofac;
 using Sinjector.Internals;
 
 namespace Sinjector;
@@ -87,7 +85,7 @@ public abstract class SinjectorFixtureAttribute : Attribute, ITestAction, ISinje
 
 		if (State.Container == null)
 		{
-			var builder = new AutofacBuilder(new ContainerBuilder());
+			var builder = CreateBuilder();
 			register(builder, new IgnoreTestDoubles());
 			State.TestDoubles.RegisterFromPreviousContainer(builder);
 			State.Container = builder.Build();
