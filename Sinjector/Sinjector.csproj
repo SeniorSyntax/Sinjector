@@ -2,13 +2,6 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>latest</LangVersion>
-        
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.0.0.0</PackageVersion>
-        <Description>Injector for NUnit tests.</Description>
-        <PackageProjectUrl>https://github.com/SeniorSyntax/Sinjector</PackageProjectUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageTags>NUnit;DI;Injection;IoC;Autofac</PackageTags>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="NUnit" Version="3.14.0" />
