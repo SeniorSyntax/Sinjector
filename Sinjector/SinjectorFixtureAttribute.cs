@@ -11,7 +11,7 @@ using Sinjector.Internals;
 namespace Sinjector;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestContext
+public abstract class SinjectorFixtureAttributeOLD : Attribute, ITestAction, ISinjectorTestContext
 {
 	public ActionTargets Targets => ActionTargets.Test;
 
@@ -66,7 +66,7 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 
 		if (State.Container == null)
 		{
-			var builder = new AutofacBuilder(new ContainerBuilder());
+			var builder = CreateBuilder();
 			register(builder, State.TestDoubles);
 			State.Container = builder.Build();
 		}
@@ -124,6 +124,8 @@ public class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestC
 		
 	protected IEnumerable<T> QueryAllAttributes<T>() => _extensions.Query<T>();
 	protected T Resolve<T>() => State.Container.Resolve<T>();
+
+	protected abstract ITheContainerBuilder CreateBuilder(); 
 
 	public void SimulateShutdown() => 
 		disposeContainer();

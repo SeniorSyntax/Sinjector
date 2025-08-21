@@ -12,6 +12,7 @@ public interface ITheContainerBuilder
     void AddService<TService>(TService instance) where TService : class;
     //how to handle this?
     void AddModule(object module);
+    ITheContainer Build();
 }
 
 public interface ITheContainer : IDisposable
