@@ -1,8 +1,9 @@
 ﻿using System;
 using Autofac;
 using NUnit.Framework;
+using Sinjector.Autofac;
 
-namespace Sinjector.Autofac.Test;
+namespace Sinjector.Test;
 
 [AutofacSinjectorFixture]
 [MySystem]

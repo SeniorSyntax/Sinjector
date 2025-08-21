@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Sinjector.Autofac.Test.AspNetCore;
+namespace Sinjector.Test.AspNetCore;
 
 [ApiController]
 public class TestController : ControllerBase

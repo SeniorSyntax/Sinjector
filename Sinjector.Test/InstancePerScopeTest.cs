@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using NUnit.Framework;
 using SharpTestsEx;
+using Sinjector.Autofac;
 
-namespace Sinjector.Autofac.Test;
+namespace Sinjector.Test;
 
 [TestSystem]
 public class InstancePerScopeTest

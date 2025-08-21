@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using Sinjector.Autofac;
 
-namespace Sinjector.Autofac.Test;
+namespace Sinjector.Test;
 
 [TestSystem]
 [Parallelizable(ParallelScope.Children)]

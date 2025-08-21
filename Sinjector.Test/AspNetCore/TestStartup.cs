@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Sinjector.Autofac.Test.AspNetCore;
+namespace Sinjector.Test.AspNetCore;
 
 public class TestStartup
 {
