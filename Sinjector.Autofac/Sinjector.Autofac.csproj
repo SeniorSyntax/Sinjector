@@ -4,6 +4,7 @@
         <LangVersion>latest</LangVersion>
         <RootNamespace>Sinjector</RootNamespace>
 
+        <PackageId>Sinjector</PackageId>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageVersion>1.0.0.0</PackageVersion>
         <Description>Injector for NUnit tests.</Description>
