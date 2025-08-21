@@ -1,9 +1,8 @@
 using Autofac;
 using NUnit.Framework;
 using SharpTestsEx;
-using Sinjector.Autofac;
 
-namespace Sinjector.Test;
+namespace Sinjector.Autofac.Test;
 
 [TestSystem]
 public class TestDoublesTest

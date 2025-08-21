@@ -1,6 +1,6 @@
 using Autofac;
 
-namespace Sinjector.Test.AspNetCore;
+namespace Sinjector.Autofac.Test.AspNetCore;
 
 public class TestSystemModule : Module
 {

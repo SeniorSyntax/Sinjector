@@ -1,4 +1,4 @@
-﻿namespace Sinjector.Test.AspNetCore;
+﻿namespace Sinjector.Autofac.Test.AspNetCore;
 
 public interface ITestService
 {
