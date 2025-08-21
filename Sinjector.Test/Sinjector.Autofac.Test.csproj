@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <BaseIntermediateOutputPath>obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
         <TargetFramework>net9.0</TargetFramework>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
@@ -13,5 +14,12 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Sinjector\Sinjector.csproj"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <Compile Remove="obj\**" />
+        <None Remove="obj\**" />
+        <!--<Compile Remove="**\*_SqlServer.cs" />-->
     </ItemGroup>
 </Project>
