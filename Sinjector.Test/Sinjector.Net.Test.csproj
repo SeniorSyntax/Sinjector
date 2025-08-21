@@ -18,7 +18,7 @@
         <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Sinjector\Sinjector.csproj"/>
+        <ProjectReference Include="..\Sinjector.Autofac\Sinjector.Autofac.csproj" />
     </ItemGroup>
 
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
