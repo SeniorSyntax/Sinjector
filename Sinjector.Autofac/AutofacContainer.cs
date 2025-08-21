@@ -68,14 +68,12 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
         return registration;
     }
     
-    public void AddService<TService>(TService instance) where TService : class
-    {
+    public void AddService<TService>(TService instance) where TService : class =>
         builder
             .RegisterInstance(instance)
             .AsSelf()
             .AsImplementedInterfaces()
             .SingleInstance();
-    }
 
     public void AddModule(object module) => 
         builder.RegisterModule((IModule)module);
