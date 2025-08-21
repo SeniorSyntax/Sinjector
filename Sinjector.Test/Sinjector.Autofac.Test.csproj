@@ -1,6 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project>
     <PropertyGroup>
         <BaseIntermediateOutputPath>obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+        <RootNamespace>Sinjector.Autofac.Test</RootNamespace>
+    </PropertyGroup>
+    <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+    
+    <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
@@ -16,7 +21,7 @@
         <ProjectReference Include="..\Sinjector\Sinjector.csproj"/>
     </ItemGroup>
 
-
+    <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
     <ItemGroup>
         <Compile Remove="obj\**" />
         <None Remove="obj\**" />
