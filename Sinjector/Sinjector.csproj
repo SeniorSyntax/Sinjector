@@ -6,7 +6,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageVersion>1.0.0.0</PackageVersion>
         <Description>Injector for NUnit tests.</Description>
-        <PackageProjectUrl>https://github.com/Teleopti/Sinjector</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/SeniorSyntax/Sinjector</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>NUnit;DI;Injection;IoC;Autofac</PackageTags>
     </PropertyGroup>
