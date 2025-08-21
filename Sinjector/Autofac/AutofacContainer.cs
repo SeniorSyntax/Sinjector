@@ -1,10 +1,10 @@
 using System;
 using Autofac;
 using Autofac.Core;
+using Sinjector.Internals;
 
-namespace Sinjector.Internals;
+namespace Sinjector.Autofac;
 
-//should be public I think
 public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
 {
     public void RegisterTestDoubleType(Type type, Type[] asTypes)
@@ -84,7 +84,6 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
         new AutofacContainer(builder.Build());
 }
 
-//should be internal
 public class AutofacContainer(IContainer container) : ITheContainer
 {
     public object Resolve(Type type) => 
