@@ -27,7 +27,6 @@ public class ParallelizableChildrenTest
 		public void Extend(IExtend extend)
 		{
 			extend.AddService<TestSystemContext>();
-			extend.AddService(this);
 		}
 
 		public class TestSystemContext

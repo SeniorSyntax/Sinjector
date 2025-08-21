@@ -7,7 +7,6 @@ using Sinjector.Autofac;
 
 namespace Sinjector.Test;
 
-[TestFixture]
 [TestSystem]
 [TestQueriable("QueryAttributesTest")]
 public class QueryAttributesTest

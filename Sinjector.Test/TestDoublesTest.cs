@@ -5,7 +5,6 @@ using Sinjector.Autofac;
 
 namespace Sinjector.Test;
 
-[TestFixture]
 [TestSystem]
 public class TestDoublesTest
 {
