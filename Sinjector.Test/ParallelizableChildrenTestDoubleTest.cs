@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Sinjector.Autofac;
 
 namespace Sinjector.Test;
 
@@ -11,7 +12,7 @@ public class ParallelizableChildrenTestDoubleTest
 	{
 	}
 
-	public class TestSystemAttribute : SinjectorFixtureAttribute, IIsolateSystem
+	public class TestSystemAttribute : AutofacSinjectorFixtureAttribute, IIsolateSystem
 	{
 		public void Isolate(IIsolate isolate)
 		{

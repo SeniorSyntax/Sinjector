@@ -2,6 +2,7 @@ using System;
 using Autofac;
 using NUnit.Framework;
 using SharpTestsEx;
+using Sinjector.Autofac;
 
 namespace Sinjector.Test;
 
@@ -39,7 +40,7 @@ public class RestartSimulationTest
 		FakedDisposeService.Value.Should().Be(37);
 	}
 
-	public class TestSystemAttribute : SinjectorFixtureAttribute, IContainerSetup, IIsolateSystem
+	public class TestSystemAttribute : AutofacSinjectorFixtureAttribute, IContainerSetup, IIsolateSystem
 	{
 		public void ContainerSetup(IContainerSetupContext context)
 		{

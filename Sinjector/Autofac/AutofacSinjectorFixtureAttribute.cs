@@ -1,9 +1,8 @@
 ﻿using Autofac;
-using Sinjector.Autofac;
 
-namespace Sinjector;
+namespace Sinjector.Autofac;
 
-public class SinjectorFixtureAttribute : SinjectorFixtureAttributeOLD
+public class AutofacSinjectorFixtureAttribute : SinjectorFixtureAttribute
 {
     protected override ITheContainerBuilder CreateBuilder() => 
         new AutofacBuilder(new ContainerBuilder());

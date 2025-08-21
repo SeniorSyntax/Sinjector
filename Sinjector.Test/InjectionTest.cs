@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Autofac;
 using NUnit.Framework;
 using SharpTestsEx;
+using Sinjector.Autofac;
 
 namespace Sinjector.Test;
 
@@ -33,7 +34,7 @@ public class InjectionTest
 	}
 
 	[TestSystemExtended]
-	public class TestSystemAttribute : SinjectorFixtureAttribute, IContainerSetup
+	public class TestSystemAttribute : AutofacSinjectorFixtureAttribute, IContainerSetup
 	{
 		public void ContainerSetup(IContainerSetupContext context)
 		{

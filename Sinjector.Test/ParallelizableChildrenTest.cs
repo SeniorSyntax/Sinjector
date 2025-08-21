@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NUnit.Framework;
+using Sinjector.Autofac;
 
 namespace Sinjector.Test;
 
@@ -19,7 +20,7 @@ public class ParallelizableChildrenTest
 		Assert.AreEqual(one, ctx.State);
 	}
 
-	public class TestSystemAttribute : SinjectorFixtureAttribute, IExtendSystem
+	public class TestSystemAttribute : AutofacSinjectorFixtureAttribute, IExtendSystem
 	{
 		public TestSystemContext SystemContext => Resolve<TestSystemContext>();
 

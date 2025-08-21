@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using NUnit.Framework;
 using SharpTestsEx;
+using Sinjector.Autofac;
 
 namespace Sinjector.Test;
 
@@ -19,7 +20,7 @@ public class InstancePerScopeTest
     }
     
     
-    public class TestSystemAttribute : SinjectorFixtureAttribute, IExtendSystem
+    public class TestSystemAttribute : AutofacSinjectorFixtureAttribute, IExtendSystem
     {
         public void Extend(IExtend extend)
         {

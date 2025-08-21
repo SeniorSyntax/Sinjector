@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using SharpTestsEx;
+using Sinjector.Autofac;
 
 namespace Sinjector.Test;
 
@@ -43,7 +44,7 @@ public class QueryAttributesByInterfacesTest
 	}
 
 	[TestSystemExtension]
-	public class TestSystemAttribute : SinjectorFixtureAttribute
+	public class TestSystemAttribute : AutofacSinjectorFixtureAttribute
 	{
 		public new IEnumerable<T> QueryAllAttributes<T>() =>
 			base.QueryAllAttributes<T>();

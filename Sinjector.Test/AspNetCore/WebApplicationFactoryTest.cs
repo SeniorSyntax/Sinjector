@@ -17,7 +17,7 @@ using Sinjector.Autofac;
 
 namespace Sinjector.Test.AspNetCore;
 
-[SinjectorFixture]
+[AutofacSinjectorFixture]
 [WebApplicationFactoryTest]
 public class WebApplicationFactoryTest : IIsolateSystem
 {
