@@ -16,9 +16,9 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
         serviceCollection.AddSingleton(asTypes.Single(), instance);
     }
 
-    public object AddService<TService>(bool instancePerLifeTimeScope)
+    public object AddService<TService>(bool instancePerLifeTimeScope) where TService : class
     {
-        throw new NotImplementedException();
+        return serviceCollection.AddSingleton<TService>();
     }
 
     public object AddService(Type type, bool instancePerLifeTimeScope)

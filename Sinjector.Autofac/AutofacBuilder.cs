@@ -38,7 +38,7 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
         //////////////////////
     }
     
-    public object AddService<TService>(bool instancePerLifeTimeScope)
+    public object AddService<TService>(bool instancePerLifeTimeScope) where TService : class
     {
         var registration = builder
             .RegisterType<TService>()
