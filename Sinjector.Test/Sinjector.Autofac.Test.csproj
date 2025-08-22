@@ -25,5 +25,6 @@
         <Compile Remove="obj\**" />
         <None Remove="obj\**" />
         <Compile Remove="**\*_Net.cs" />
+        <Compile Remove="**\*_Net\**" />
     </ItemGroup>
 </Project>

@@ -25,5 +25,6 @@
         <Compile Remove="obj\**" />
         <None Remove="obj\**" />
         <Compile Remove="**\*_Autofac.cs" />
+        <Compile Remove="**\*_Autofac\**" />
     </ItemGroup>
 </Project>
