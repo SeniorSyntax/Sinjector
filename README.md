@@ -7,5 +7,5 @@ Currently built for Autofac, injecting your system services to test fixtures pub
 
 Usage example:
 
-https://github.com/Teleopti/Sinjector/blob/cc7bffc2113dcef7ea93db7ae1167a827670f5f4/Sinjector.Test/SampleTest.cs#L7-L42
+https://github.com/SeniorSyntax/Sinjector/blob/cc7bffc2113dcef7ea93db7ae1167a827670f5f4/Sinjector.Test/SampleTest.cs#L7-L42
 
