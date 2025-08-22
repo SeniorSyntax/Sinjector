@@ -10,8 +10,7 @@ public interface ITheContainerBuilder
     object AddService<TService>(bool instancePerLifeTimeScope);
     object AddService(Type type, bool instancePerLifeTimeScope);
     void AddService<TService>(TService instance) where TService : class;
-    //how to handle this?
-    void AddModule(object module);
+    void Add(object thing);
     ITheContainer Build();
 }
 

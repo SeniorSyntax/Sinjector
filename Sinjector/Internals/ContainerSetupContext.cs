@@ -36,8 +36,8 @@ internal class ContainerSetupContext : IContainerSetupContext
 	internal void AddTestDoubles(ITestDoubles testDoubles) => 
 		_builder.RegisterTestDoubleInstance(testDoubles, [typeof(ITestDoubles)], false);
 
-	public void AddModule(object module) =>
-		_builder.AddModule(module);
+	public void Add(object module) =>
+		_builder.Add(module);
 
 	public ITestDoubleFor UseTestDouble<TTestDouble>() where TTestDouble : class =>
 		UseTestDoubleForType(typeof(TTestDouble));
