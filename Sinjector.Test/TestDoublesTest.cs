@@ -1,4 +1,3 @@
-using Autofac;
 using NUnit.Framework;
 using SharpTestsEx;
 
@@ -78,7 +77,11 @@ public class TestDoublesTest
 	{
 		public void ContainerSetup(IContainerSetupContext context)
 		{
-			context.AddModule(new TestSystemModule());
+			context.AddService<RealGenericTypedService>();
+			context.AddService<RealInstancedService>();
+			context.AddService<RealTypedService>();
+			context.AddService<RealNonActivatedService>();
+			context.AddService<RealDoubleFakedService>();
 		}
 
 		public void Isolate(IIsolate isolate)
@@ -92,18 +95,6 @@ public class TestDoublesTest
 		}
 
 		public new T Resolve<T>() => base.Resolve<T>();
-
-		public class TestSystemModule : Module
-		{
-			protected override void Load(ContainerBuilder builder)
-			{
-				builder.RegisterType<RealGenericTypedService>().As<IGenericTypedService>().SingleInstance();
-				builder.RegisterType<RealInstancedService>().As<IInstancedService>().SingleInstance();
-				builder.RegisterType<RealTypedService>().As<ITypedService>().SingleInstance();
-				builder.RegisterType<RealNonActivatedService>().As<INonActivatedService>().SingleInstance();
-				builder.RegisterType<RealDoubleFakedService>().As<IDoubleFakedService>().SingleInstance();
-			}
-		}
 	}
 
 	public interface IGenericTypedService;
