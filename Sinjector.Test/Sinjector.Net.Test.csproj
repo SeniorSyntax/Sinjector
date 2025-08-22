@@ -16,7 +16,7 @@
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.3" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Sinjector.Autofac\Sinjector.Autofac.csproj" />
+        <ProjectReference Include="..\Sinjector.Net\Sinjector.Net.csproj" />
     </ItemGroup>
 
     <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
