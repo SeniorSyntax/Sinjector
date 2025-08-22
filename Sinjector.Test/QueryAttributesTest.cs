@@ -55,7 +55,7 @@ public class QueryAttributesTest
 
 	[TestSystemExtension]
 	[TestQueriable("TestSystemAttribute")]
-	public class TestSystemAttribute : AutofacSinjectorFixtureAttribute
+	public class TestSystemAttribute : SinjectorFixtureAttribute
 	{
 		public new IEnumerable<T> QueryAllAttributes<T>() =>
 			base.QueryAllAttributes<T>();

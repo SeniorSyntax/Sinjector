@@ -39,7 +39,7 @@ public class RestartSimulationTest
 		FakedDisposeService.Value.Should().Be(37);
 	}
 
-	public class TestSystemAttribute : AutofacSinjectorFixtureAttribute, IContainerSetup, IIsolateSystem
+	public class TestSystemAttribute : SinjectorFixtureAttribute, IContainerSetup, IIsolateSystem
 	{
 		public void ContainerSetup(IContainerSetupContext context)
 		{

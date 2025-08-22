@@ -9,7 +9,7 @@ using Sinjector.Internals;
 namespace Sinjector;
 
 [AttributeUsage(AttributeTargets.Class)]
-public abstract class SinjectorFixtureAttribute : Attribute, ITestAction, ISinjectorTestContext
+public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, ISinjectorTestContext
 {
 	public ActionTargets Targets => ActionTargets.Test;
 

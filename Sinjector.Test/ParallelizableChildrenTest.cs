@@ -19,7 +19,7 @@ public class ParallelizableChildrenTest
 		Assert.AreEqual(one, ctx.State);
 	}
 
-	public class TestSystemAttribute : AutofacSinjectorFixtureAttribute, IExtendSystem
+	public class TestSystemAttribute : SinjectorFixtureAttribute, IExtendSystem
 	{
 		public TestSystemContext SystemContext => Resolve<TestSystemContext>();
 

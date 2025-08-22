@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Sinjector.Test;
 
-[AutofacSinjectorFixture]
+[SinjectorFixture]
 [MySystem]
 public class SampleTest
 {

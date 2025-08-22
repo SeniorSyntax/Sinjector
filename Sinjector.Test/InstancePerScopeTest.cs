@@ -19,7 +19,7 @@ public class InstancePerScopeTest
     }
     
     
-    public class TestSystemAttribute : AutofacSinjectorFixtureAttribute, IExtendSystem
+    public class TestSystemAttribute : SinjectorFixtureAttribute, IExtendSystem
     {
         public void Extend(IExtend extend)
         {

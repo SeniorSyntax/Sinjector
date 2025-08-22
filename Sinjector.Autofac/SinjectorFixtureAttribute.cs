@@ -2,7 +2,7 @@
 
 namespace Sinjector;
 
-public class AutofacSinjectorFixtureAttribute : SinjectorFixtureAttribute
+public class SinjectorFixtureAttribute : SinjectorFixtureBaseAttribute
 {
     protected override ITheContainerBuilder CreateBuilder() => 
         new AutofacBuilder(new ContainerBuilder());

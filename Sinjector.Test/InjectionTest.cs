@@ -32,7 +32,7 @@ public class InjectionTest
 	}
 
 	[TestSystemExtended]
-	public class TestSystemAttribute : AutofacSinjectorFixtureAttribute, IContainerSetup
+	public class TestSystemAttribute : SinjectorFixtureAttribute, IContainerSetup
 	{
 		public void ContainerSetup(IContainerSetupContext context)
 		{
