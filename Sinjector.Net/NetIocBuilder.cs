@@ -8,12 +8,20 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
 {
     public void RegisterTestDoubleType(Type type, Type[] asTypes)
     {
-        serviceCollection.AddSingleton(asTypes.Single(), type);
+        serviceCollection.AddSingleton(type);
+        foreach (var asType in asTypes)
+        {
+            serviceCollection.AddSingleton(asType, sp => sp.GetRequiredService(type));   
+        }
     }
 
     public void RegisterTestDoubleInstance(object instance, Type[] asTypes, bool propHack)
     {
-        serviceCollection.AddSingleton(asTypes.Single(), instance);
+        serviceCollection.AddSingleton(instance);
+        foreach (var asType in asTypes)
+        {
+            serviceCollection.AddSingleton(asType, instance); 
+        }
     }
 
     public object AddService<TService>(bool instancePerLifeTimeScope) where TService : class
