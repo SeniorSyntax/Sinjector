@@ -1,5 +1,4 @@
 ﻿using System;
-using Autofac;
 using NUnit.Framework;
 
 namespace Sinjector.Test;
@@ -21,16 +20,7 @@ public class MySystemAttribute : Attribute, IContainerSetup
 {
     public void ContainerSetup(IContainerSetupContext context)
     {
-        context.AddModule(new MySystemModule());
-    }
-}
-
-
-public class MySystemModule : Module
-{
-    protected override void Load(ContainerBuilder builder)
-    {
-        builder.RegisterType<MyService>();
+        context.AddService<MyService>();
     }
 }
 

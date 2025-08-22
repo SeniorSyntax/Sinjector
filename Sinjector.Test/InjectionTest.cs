@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Autofac;
 using NUnit.Framework;
 using SharpTestsEx;
 
@@ -36,15 +35,7 @@ public class InjectionTest
 	{
 		public void ContainerSetup(IContainerSetupContext context)
 		{
-			context.AddModule(new TestSystemModule());
-		}
-
-		public class TestSystemModule : Module
-		{
-			protected override void Load(ContainerBuilder builder)
-			{
-				builder.RegisterType<TestService>().SingleInstance();
-			}
+			context.AddService<TestService>();
 		}
 	}
 

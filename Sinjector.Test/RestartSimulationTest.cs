@@ -1,5 +1,4 @@
 using System;
-using Autofac;
 using NUnit.Framework;
 using SharpTestsEx;
 
@@ -43,21 +42,13 @@ public class RestartSimulationTest
 	{
 		public void ContainerSetup(IContainerSetupContext context)
 		{
-			context.AddModule(new TestSystemModule());
+			context.AddService<TestService>();
 		}
 
 		public void Isolate(IIsolate isolate)
 		{
 			isolate.UseTestDouble<FakeService>().For<IFakedService>();
 			isolate.UseTestDouble<FakeDisposeService>().For<IFakeDisposeService>();
-		}
-
-		public class TestSystemModule : Module
-		{
-			protected override void Load(ContainerBuilder builder)
-			{
-				builder.RegisterType<TestService>().SingleInstance();
-			}
 		}
 	}
 
@@ -76,5 +67,4 @@ public class RestartSimulationTest
 		public int Value { get; set; }
 		public void Dispose() => Value = 0;
 	}
-	
 }
