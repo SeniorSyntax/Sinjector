@@ -24,6 +24,6 @@
     <ItemGroup>
         <Compile Remove="obj\**" />
         <None Remove="obj\**" />
-        <!--<Compile Remove="**\*_SqlServer.cs" />-->
+        <Compile Remove="**\*_Net.cs" />
     </ItemGroup>
 </Project>
