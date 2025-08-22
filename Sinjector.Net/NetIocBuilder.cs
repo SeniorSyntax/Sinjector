@@ -36,7 +36,7 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
 
     public void AddService<TService>(TService instance) where TService : class
     {
-        serviceCollection.AddSingleton(instance);
+        serviceCollection.AddSingleton(instance.GetType(), instance);
     }
 
     public void Add(object thing)
