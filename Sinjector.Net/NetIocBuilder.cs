@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using Sinjector.Internals;
 
 namespace Sinjector;
 
 public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainerBuilder
 {
-    public void RegisterTestDoubleType(Type type, Type[] asTypes)
+    public void RegisterTestDoubleType(Type type, Type[] asTypes, ITestDoubles testDoubles)
     {
         serviceCollection.AddSingleton(type);
         foreach (var asType in asTypes)
@@ -14,7 +15,7 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
         }
     }
 
-    public void RegisterTestDoubleInstance(object instance, Type[] asTypes, bool propHack)
+    public void RegisterTestDoubleInstance(object instance, Type[] asTypes)
     {
         serviceCollection.AddSingleton(instance);
         foreach (var asType in asTypes)

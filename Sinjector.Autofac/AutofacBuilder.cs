@@ -7,8 +7,7 @@ namespace Sinjector;
 
 public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
 {
-    public void RegisterTestDoubleType(Type type, Type[] asTypes)
-    {
+    public void RegisterTestDoubleType(Type type, Type[] asTypes, ITestDoubles testDoubles) =>
         builder
             .RegisterType(type)
             .SingleInstance()
@@ -18,25 +17,16 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
             .PropertiesAutowired()
             .OnActivated(c =>
             {
-                c.Context.Resolve<ITestDoubles>()
-                    .KeepInstance(c.Instance, type);
+                testDoubles.KeepInstance(c.Instance, type);
             });
-    }
 
-    //fix me somehow
-    public void RegisterTestDoubleInstance(object instance, Type[] asTypes, bool propHack)
-    {
-        var reg = builder
+    public void RegisterTestDoubleInstance(object instance, Type[] asTypes) =>
+        builder
             .RegisterInstance(instance)
             .AsSelf()
             .As(asTypes)
-            .ExternallyOwned();
-        
-        //remove me? //////////
-        if (propHack)
-            reg.PropertiesAutowired();
-        //////////////////////
-    }
+            .ExternallyOwned()
+            .PropertiesAutowired();
 
     public object AddService(Type type, bool instancePerLifeTimeScope)
     {

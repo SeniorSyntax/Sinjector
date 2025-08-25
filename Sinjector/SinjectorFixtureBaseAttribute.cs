@@ -97,7 +97,6 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 	private void register(ITheContainerBuilder builder, ITestDoubles testDoubles)
 	{
 		var context = new ContainerSetupContext(testDoubles, builder, _extensions);
-		context.AddTestDoubles(State.TestDoubles);
 		context.AddService(this);
 
 		InvokeExtensions<IContainerSetup>(x => x.ContainerSetup(context));

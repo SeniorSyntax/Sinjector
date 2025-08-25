@@ -30,9 +30,6 @@ internal class ContainerSetupContext : IContainerSetupContext
 		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.RegistrationCallback(registration));
 	}
 
-	internal void AddTestDoubles(ITestDoubles testDoubles) => 
-		_builder.RegisterTestDoubleInstance(testDoubles, [typeof(ITestDoubles)], false);
-
 	public void Add(object module) =>
 		_builder.Add(module);
 

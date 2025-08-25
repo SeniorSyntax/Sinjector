@@ -27,16 +27,16 @@ internal class TestDoubles : ITestDoubles, IDisposable
 		register(builder, testDouble);
 	}
 
-	private static void register(ITheContainerBuilder builder, testDouble testDouble)
+	private void register(ITheContainerBuilder builder, testDouble testDouble)
 	{
 		var instance = testDouble.instance;
 		var type = testDouble.type;
 		var asTypes = testDouble.asTypes;
 
 		if (instance != null)
-			builder.RegisterTestDoubleInstance(instance, asTypes, true);
+			builder.RegisterTestDoubleInstance(instance, asTypes);
 		else
-			builder.RegisterTestDoubleType(type, asTypes);
+			builder.RegisterTestDoubleType(type, asTypes, this);
 	}
 
 	public void KeepInstance(object instance, Type type)
@@ -52,11 +52,11 @@ internal class TestDoubles : ITestDoubles, IDisposable
 		{
 			if (x.instance == null)
 			{
-				builder.RegisterTestDoubleType(x.type, x.asTypes);
+				builder.RegisterTestDoubleType(x.type, x.asTypes, this);
 			}
 			else
 			{
-				builder.RegisterTestDoubleInstance(x.instance, x.asTypes, true);
+				builder.RegisterTestDoubleInstance(x.instance, x.asTypes);
 			}
 		});
 	}
