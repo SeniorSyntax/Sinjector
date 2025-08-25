@@ -39,7 +39,7 @@ internal class TestDoubles : ITestDoubles, IDisposable
 			builder.RegisterTestDoubleType(type, asTypes);
 	}
 
-	public void KeepInstances(ITheContainer theContainer)
+	public void SetInstances(ITheContainer theContainer)
 	{
 		foreach (var testDouble in _items.Where(testDouble => testDouble.type != null))
 		{

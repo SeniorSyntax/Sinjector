@@ -67,7 +67,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 			var builder = CreateBuilder();
 			register(builder, State.TestDoubles);
 			State.Container = builder.Build();
-			State.TestDoubles.KeepInstances(State.Container);
+			State.TestDoubles.SetInstances(State.Container);
 		}
 	}
 

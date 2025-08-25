@@ -12,7 +12,7 @@ internal class IgnoreTestDoubles : ITestDoubles
     {
     }
 
-    public void KeepInstances(ITheContainer theContainer)
+    public void SetInstances(ITheContainer theContainer)
     {
         
     }
