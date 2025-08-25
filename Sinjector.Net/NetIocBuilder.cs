@@ -16,7 +16,7 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
 
     public void RegisterTestDoubleInstance(object instance, Type[] asTypes)
     {
-        serviceCollection.AddSingleton(instance);
+        serviceCollection.AddSingleton(instance.GetType(), instance);
         foreach (var asType in asTypes)
         {
             serviceCollection.AddSingleton(asType, instance); 
