@@ -7,7 +7,6 @@ public interface ITheContainerBuilder
     void RegisterTestDoubleType(Type type, Type[] asTypes);
     //remove "propHack"
     void RegisterTestDoubleInstance(object instance, Type[] asTypes, bool propHack);
-    object AddService<TService>(bool instancePerLifeTimeScope)  where TService : class;
     object AddService(Type type, bool instancePerLifeTimeScope);
     void AddService<TService>(TService instance) where TService : class;
     void Add(object thing);

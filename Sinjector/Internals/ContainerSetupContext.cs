@@ -18,14 +18,11 @@ internal class ContainerSetupContext : IContainerSetupContext
 
 	public object State { get; set; }
 
-	public void AddService<TService>(bool instancePerLifeTimeScope = false) where TService : class
-	{
-		var registration = _builder.AddService<TService>(instancePerLifeTimeScope);
-		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.RegistrationCallback(registration));
-	}
-
 	public void AddService<TService>(TService instance) where TService : class => 
 		_builder.AddService(instance);
+	
+	public void AddService<TService>(bool instancePerLifeTimeScope = false) where TService : class => 
+		AddService(typeof(TService), instancePerLifeTimeScope);
 
 	public void AddService(Type type, bool instancePerLifeTimeScope = false)
 	{

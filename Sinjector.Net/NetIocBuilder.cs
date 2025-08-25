@@ -23,13 +23,6 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
         }
     }
 
-    public object AddService<TService>(bool instancePerLifeTimeScope) where TService : class
-    {
-        return instancePerLifeTimeScope ? 
-            serviceCollection.AddScoped<TService>() : 
-            serviceCollection.AddSingleton<TService>();
-    }
-
     public object AddService(Type type, bool instancePerLifeTimeScope)
     {
         return instancePerLifeTimeScope ?
