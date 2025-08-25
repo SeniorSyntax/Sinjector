@@ -1,24 +1,19 @@
 ﻿using System;
 using Autofac;
 using Autofac.Core;
-using Sinjector.Internals;
 
 namespace Sinjector;
 
 public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
 {
-    public void RegisterTestDoubleType(Type type, Type[] asTypes, ITestDoubles testDoubles) =>
+    public void RegisterTestDoubleType(Type type, Type[] asTypes) =>
         builder
             .RegisterType(type)
             .SingleInstance()
             .AsSelf()
             .As(asTypes)
             .ExternallyOwned()
-            .PropertiesAutowired()
-            .OnActivated(c =>
-            {
-                testDoubles.KeepInstance(c.Instance, type);
-            });
+            .PropertiesAutowired();
 
     public void RegisterTestDoubleInstance(object instance, Type[] asTypes) =>
         builder

@@ -1,12 +1,11 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
-using Sinjector.Internals;
 
 namespace Sinjector;
 
 public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainerBuilder
 {
-    public void RegisterTestDoubleType(Type type, Type[] asTypes, ITestDoubles testDoubles)
+    public void RegisterTestDoubleType(Type type, Type[] asTypes)
     {
         serviceCollection.AddSingleton(type);
         foreach (var asType in asTypes)

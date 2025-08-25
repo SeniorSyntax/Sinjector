@@ -36,14 +36,15 @@ internal class TestDoubles : ITestDoubles, IDisposable
 		if (instance != null)
 			builder.RegisterTestDoubleInstance(instance, asTypes);
 		else
-			builder.RegisterTestDoubleType(type, asTypes, this);
+			builder.RegisterTestDoubleType(type, asTypes);
 	}
 
-	public void KeepInstance(object instance, Type type)
+	public void KeepInstances(ITheContainer theContainer)
 	{
-		_items
-			.Where(x => x.type == type)
-			.ForEach(x => { x.instance = instance; });
+		foreach (var testDouble in _items.Where(testDouble => testDouble.type != null))
+		{
+			testDouble.instance = theContainer.Resolve(testDouble.type);
+		}
 	}
 
 	public void RegisterFromPreviousContainer(ITheContainerBuilder builder)
@@ -52,7 +53,7 @@ internal class TestDoubles : ITestDoubles, IDisposable
 		{
 			if (x.instance == null)
 			{
-				builder.RegisterTestDoubleType(x.type, x.asTypes, this);
+				builder.RegisterTestDoubleType(x.type, x.asTypes);
 			}
 			else
 			{

@@ -67,6 +67,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 			var builder = CreateBuilder();
 			register(builder, State.TestDoubles);
 			State.Container = builder.Build();
+			State.TestDoubles.KeepInstances(State.Container);
 		}
 	}
 
@@ -89,6 +90,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 			register(builder, new IgnoreTestDoubles());
 			State.TestDoubles.RegisterFromPreviousContainer(builder);
 			State.Container = builder.Build();
+			State.TestDoubles.KeepInstances(State.Container);
 		}
 
 		_injector?.Source(State.Container);
