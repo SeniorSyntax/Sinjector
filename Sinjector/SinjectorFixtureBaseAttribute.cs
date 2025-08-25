@@ -90,7 +90,6 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 			register(builder, new IgnoreTestDoubles());
 			State.TestDoubles.RegisterFromPreviousContainer(builder);
 			State.Container = builder.Build();
-			State.TestDoubles.KeepInstances(State.Container);
 		}
 
 		_injector?.Source(State.Container);
