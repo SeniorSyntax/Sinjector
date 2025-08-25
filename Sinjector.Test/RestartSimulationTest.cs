@@ -16,7 +16,7 @@ public class RestartSimulationTest
 	public void RemoveMe()
 	{
 		if(!typeof(SinjectorFixtureAttribute).Assembly.FullName.Contains("Autofac"))
-			Assert.Ignore("not yet fixed for net");
+			Assert.Ignore("not really supported in .net's container as it will always dispose disposable components");
 	}
 	
 	[Test]
