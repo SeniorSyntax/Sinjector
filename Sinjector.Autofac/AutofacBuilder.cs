@@ -44,9 +44,13 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
             .AsSelf()
             .AsImplementedInterfaces()
             .SingleInstance();
-    
-    public void Add(object thing) => 
-        builder.RegisterModule((IModule)thing);
+
+    public void Add(object actionOnBuilder)
+    {
+        var action = (Action<ContainerBuilder>)actionOnBuilder;
+        action(builder); 
+    }
+
 
     public ITheContainer Build() => 
         new AutofacContainer(builder.Build());

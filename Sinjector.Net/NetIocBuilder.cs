@@ -35,9 +35,10 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
         serviceCollection.AddSingleton(instance.GetType(), instance);
     }
 
-    public void Add(object thing)
+    public void Add(object actionOnBuilder)
     {
-        throw new NotImplementedException();
+        var action = (Action<IServiceCollection>)actionOnBuilder;
+        action(serviceCollection);
     }
 
     public ITheContainer Build()

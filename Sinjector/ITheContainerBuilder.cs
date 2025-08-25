@@ -8,6 +8,6 @@ public interface ITheContainerBuilder
     void RegisterTestDoubleInstance(object instance, Type[] asTypes);
     object AddService(Type type, bool instancePerLifeTimeScope);
     void AddService<TService>(TService instance) where TService : class;
-    void Add(object thing);
+    void Add(object actionOnBuilder);
     ITheContainer Build();
 }
