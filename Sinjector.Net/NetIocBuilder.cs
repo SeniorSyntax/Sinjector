@@ -25,6 +25,7 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
 
     public object AddService(Type type, bool instancePerLifeTimeScope)
     {
+        //todo: also register as its implemented interfaces?
         return instancePerLifeTimeScope ?
             serviceCollection.AddScoped(type) :
             serviceCollection.AddSingleton(type);
