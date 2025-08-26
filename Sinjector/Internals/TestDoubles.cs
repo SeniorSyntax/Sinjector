@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Sinjector.Internals;
 
-internal class TestDoubles : ITestDoubles, IDisposable
+internal class TestDoubles : ITestDoubles
 {
 	private readonly List<testDouble> _items = [];
 
@@ -59,15 +59,6 @@ internal class TestDoubles : ITestDoubles, IDisposable
 			{
 				builder.RegisterTestDoubleInstance(x.instance, x.asTypes);
 			}
-		});
-	}
-
-	public void Dispose()
-	{
-		_items.ForEach(x =>
-		{
-			var disposable = x.instance as IDisposable;
-			disposable?.Dispose();
 		});
 	}
 }
