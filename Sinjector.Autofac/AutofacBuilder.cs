@@ -50,7 +50,6 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
         action(builder); 
     }
 
-
     public ITheContainer Build() => 
         new AutofacContainer(builder.Build());
 }

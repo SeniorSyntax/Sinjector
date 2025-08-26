@@ -30,10 +30,8 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
             serviceCollection.AddSingleton(type);
     }
 
-    public void AddService<TService>(TService instance) where TService : class
-    {
+    public void AddService<TService>(TService instance) where TService : class => 
         serviceCollection.AddSingleton(instance.GetType(), instance);
-    }
 
     public void Add(object actionOnBuilder)
     {
@@ -41,8 +39,6 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
         action(serviceCollection);
     }
 
-    public ITheContainer Build()
-    {
-        return new NetIocContainer(serviceCollection.BuildServiceProvider());
-    }
+    public ITheContainer Build() => 
+        new NetIocContainer(serviceCollection.BuildServiceProvider());
 }
