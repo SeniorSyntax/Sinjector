@@ -108,6 +108,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 	{
 		InvokeExtensions<ITestTeardown>(x => x.TestTeardown());
 		disposeContainer();
+		_containersToDisposeAfterTestRun.ForEach(x => x.Dispose());
 		_injector = null;
 		_state.TryRemove(WorkerId, out _);
 	}
@@ -125,11 +126,12 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 
 	public void SimulateShutdown() => 
 		disposeContainer();
-
+	
+	private readonly IList<ITheContainer> _containersToDisposeAfterTestRun = new List<ITheContainer>();
 	public void SimulateRestart()
 	{
 		State.TestDoubles.SetInstances(State.Container);
-		disposeContainer();
+		_containersToDisposeAfterTestRun.Add(State.Container);
 		rebuildContainer();
 		_injector?.Inject();
 	}

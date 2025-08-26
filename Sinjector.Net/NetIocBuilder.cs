@@ -30,8 +30,15 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
             serviceCollection.AddSingleton(type);
     }
 
-    public void AddService<TService>(TService instance) where TService : class => 
-        serviceCollection.AddSingleton(instance.GetType(), instance);
+    public void AddService<TService>(TService instance) where TService : class
+    {
+        var instanceType = instance.GetType();
+        serviceCollection.AddSingleton(instanceType, instance);
+        foreach (var interfaceType in instanceType.GetInterfaces())
+        {
+            serviceCollection.AddSingleton(interfaceType, sp => sp.GetRequiredService(instanceType));   
+        }
+    }
 
     public void Add(object actionOnBuilder)
     {

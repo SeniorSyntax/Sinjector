@@ -11,13 +11,6 @@ public class RestartSimulationTest
 	public FakeService FakedService;
 	public IFakeDisposeService FakedDisposeService;
 	public ISinjectorTestContext Context;
-
-	[SetUp]
-	public void RemoveMe()
-	{
-		if(!typeof(SinjectorFixtureAttribute).Assembly.FullName.Contains("Autofac"))
-			Assert.Ignore("not really supported in .net's container as it will always dispose disposable components");
-	}
 	
 	[Test]
 	public void ShouldGetNewServiceInstanceAfterRestart()
