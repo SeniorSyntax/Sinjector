@@ -4,12 +4,14 @@
         <LangVersion>latest</LangVersion>
         <RootNamespace>Sinjector</RootNamespace>
 
+        <!--
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageVersion>1.0.0.0</PackageVersion>
-        <Description>Injector for .net tests.</Description>
+        <Description>Injector for NUnit tests.</Description>
         <PackageProjectUrl>https://github.com/SeniorSyntax/Sinjector</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>NUnit;DI;Injection;IoC</PackageTags>
+        -->
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\Sinjector\Sinjector.csproj" />
