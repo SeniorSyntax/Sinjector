@@ -2,12 +2,12 @@
 
 namespace Sinjector;
 
-public interface ITheContainerBuilder
+public interface ISinjectorContainerBuilder
 {
     void RegisterTestDoubleType(Type type, Type[] asTypes);
     void RegisterTestDoubleInstance(object instance, Type[] asTypes);
     object AddService(Type type);
     void AddService<TService>(TService instance) where TService : class;
     void Add(object actionOnBuilder);
-    ITheContainer Build();
+    ISinjectorContainer Build();
 }

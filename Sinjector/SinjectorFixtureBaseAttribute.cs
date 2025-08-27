@@ -19,7 +19,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 	private class TestState
 	{
 		public object Fixture;
-		public ITheContainer Container;
+		public ISinjectorContainer Container;
 		public ITestDoubles TestDoubles;
 	}
 
@@ -94,7 +94,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 		_injector?.Source(State.Container);
 	}
 
-	private void register(ITheContainerBuilder builder, ITestDoubles testDoubles)
+	private void register(ISinjectorContainerBuilder builder, ITestDoubles testDoubles)
 	{
 		var context = new ContainerSetupContext(testDoubles, builder, _extensions);
 		context.AddService(this);
@@ -122,12 +122,12 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 	protected IEnumerable<T> QueryAllAttributes<T>() => _extensions.Query<T>();
 	protected T Resolve<T>() => State.Container.Resolve<T>();
 
-	protected abstract ITheContainerBuilder CreateBuilder(); 
+	protected abstract ISinjectorContainerBuilder CreateBuilder(); 
 
 	public void SimulateShutdown() => 
 		disposeContainer();
 	
-	private readonly IList<ITheContainer> _containersToDisposeAfterTestRun = new List<ITheContainer>();
+	private readonly IList<ISinjectorContainer> _containersToDisposeAfterTestRun = new List<ISinjectorContainer>();
 	public void SimulateRestart()
 	{
 		State.TestDoubles.SetInstances(State.Container);

@@ -4,7 +4,7 @@ namespace Sinjector.Internals;
 
 internal interface ITestDoubles
 {
-    void Register(ITheContainerBuilder builder, object instance, Type type, Type[] asTypes);
-    void RegisterFromPreviousContainer(ITheContainerBuilder builder);
-    void SetInstances(ITheContainer theContainer);
+    void Register(ISinjectorContainerBuilder builder, object instance, Type type, Type[] asTypes);
+    void RegisterFromPreviousContainer(ISinjectorContainerBuilder builder);
+    void SetInstances(ISinjectorContainer sinjectorContainer);
 }

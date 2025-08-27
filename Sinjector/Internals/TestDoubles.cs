@@ -15,7 +15,7 @@ internal class TestDoubles : ITestDoubles
 		public Type[] asTypes;
 	}
 
-	public void Register(ITheContainerBuilder builder, object instance, Type type, Type[] asTypes)
+	public void Register(ISinjectorContainerBuilder builder, object instance, Type type, Type[] asTypes)
 	{
 		var testDouble = new testDouble
 		{
@@ -27,7 +27,7 @@ internal class TestDoubles : ITestDoubles
 		register(builder, testDouble);
 	}
 
-	private void register(ITheContainerBuilder builder, testDouble testDouble)
+	private void register(ISinjectorContainerBuilder builder, testDouble testDouble)
 	{
 		var instance = testDouble.instance;
 		var type = testDouble.type;
@@ -39,15 +39,15 @@ internal class TestDoubles : ITestDoubles
 			builder.RegisterTestDoubleType(type, asTypes);
 	}
 
-	public void SetInstances(ITheContainer theContainer)
+	public void SetInstances(ISinjectorContainer sinjectorContainer)
 	{
 		foreach (var testDouble in _items.Where(testDouble => testDouble.type != null))
 		{
-			testDouble.instance = theContainer.Resolve(testDouble.type);
+			testDouble.instance = sinjectorContainer.Resolve(testDouble.type);
 		}
 	}
 
-	public void RegisterFromPreviousContainer(ITheContainerBuilder builder)
+	public void RegisterFromPreviousContainer(ISinjectorContainerBuilder builder)
 	{
 		_items.ForEach(x =>
 		{

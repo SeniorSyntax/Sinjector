@@ -4,7 +4,7 @@ namespace Sinjector;
 
 public class SinjectorFixtureAttribute : SinjectorFixtureBaseAttribute
 {
-    protected override ITheContainerBuilder CreateBuilder()
+    protected override ISinjectorContainerBuilder CreateBuilder()
     {
         return new NetIocBuilder(new ServiceCollection());
     }

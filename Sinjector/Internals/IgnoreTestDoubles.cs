@@ -4,15 +4,15 @@ namespace Sinjector.Internals;
 
 internal class IgnoreTestDoubles : ITestDoubles
 {
-    public void Register(ITheContainerBuilder builder, object instance, Type type, Type[] asTypes)
+    public void Register(ISinjectorContainerBuilder builder, object instance, Type type, Type[] asTypes)
     {
     }
 
-    public void RegisterFromPreviousContainer(ITheContainerBuilder builder)
+    public void RegisterFromPreviousContainer(ISinjectorContainerBuilder builder)
     {
     }
 
-    public void SetInstances(ITheContainer theContainer)
+    public void SetInstances(ISinjectorContainer sinjectorContainer)
     {
         
     }

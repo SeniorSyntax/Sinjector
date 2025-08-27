@@ -6,10 +6,10 @@ namespace Sinjector.Internals;
 
 internal class Injector
 {
-	private ITheContainer _container;
+	private ISinjectorContainer _container;
 	private readonly List<object> _targets = new();
 
-	public Injector Source(ITheContainer container)
+	public Injector Source(ISinjectorContainer container)
 	{
 		_container = container;
 		return this;
@@ -24,7 +24,7 @@ internal class Injector
 	public void Inject() => 			
 		_targets.ForEach(x => injectTo(_container, x));
 		
-	private static void injectTo(ITheContainer container, object target)
+	private static void injectTo(ISinjectorContainer container, object target)
 	{
 		var type = target.GetType();
 		var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)

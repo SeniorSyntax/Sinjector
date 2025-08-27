@@ -3,7 +3,7 @@ using Autofac;
 
 namespace Sinjector;
 
-public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
+public class AutofacBuilder(ContainerBuilder builder) : ISinjectorContainerBuilder
 {
     public void RegisterTestDoubleType(Type type, Type[] asTypes) =>
         builder
@@ -42,6 +42,6 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
         action(builder); 
     }
 
-    public ITheContainer Build() => 
+    public ISinjectorContainer Build() => 
         new AutofacContainer(builder.Build());
 }

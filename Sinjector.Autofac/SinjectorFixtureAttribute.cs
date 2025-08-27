@@ -4,6 +4,6 @@ namespace Sinjector;
 
 public class SinjectorFixtureAttribute : SinjectorFixtureBaseAttribute
 {
-    protected override ITheContainerBuilder CreateBuilder() => 
+    protected override ISinjectorContainerBuilder CreateBuilder() => 
         new AutofacBuilder(new ContainerBuilder());
 }

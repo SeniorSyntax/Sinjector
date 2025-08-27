@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Sinjector;
 
-public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainerBuilder
+public class NetIocBuilder(IServiceCollection serviceCollection) : ISinjectorContainerBuilder
 {
     public void RegisterTestDoubleType(Type type, Type[] asTypes)
     {
@@ -45,6 +45,6 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
         action(serviceCollection);
     }
 
-    public ITheContainer Build() => 
+    public ISinjectorContainer Build() => 
         new NetIocContainer(serviceCollection.BuildServiceProvider());
 }

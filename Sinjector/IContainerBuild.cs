@@ -4,5 +4,5 @@ namespace Sinjector;
 
 public interface IContainerBuild
 {
-	ITheContainer ContainerBuild(Action<ITheContainerBuilder> registrations);
+	ISinjectorContainer ContainerBuild(Action<ISinjectorContainerBuilder> registrations);
 }

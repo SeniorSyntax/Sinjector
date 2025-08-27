@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Sinjector;
 
-public class NetIocContainer(ServiceProvider serviceProvider) : ITheContainer
+public class NetIocContainer(ServiceProvider serviceProvider) : ISinjectorContainer
 {
     public object Resolve(Type type) => 
         serviceProvider.GetService(type);
