@@ -38,12 +38,12 @@ internal class TestDoubles : ITestDoubles
 			builder.RegisterTestDoubleType(type, asTypes);
 	}
 	
-	public void RegisterFromPreviousContainer(ISinjectorContainer sinjectorContainer, ISinjectorContainerBuilder builder)
+	public void RegisterFromPreviousContainer(ISinjectorContainer previousContainer, ISinjectorContainerBuilder builder)
 	{
 		_items.ForEach(x =>
 		{
 			if (x.instance == null) 
-				x.instance = sinjectorContainer.Resolve(x.type);
+				x.instance = previousContainer.Resolve(x.type);
 			
 			builder.RegisterTestDoubleInstance(x.instance, x.asTypes);
 		});
