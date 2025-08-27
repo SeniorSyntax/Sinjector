@@ -29,8 +29,10 @@ internal class TestDoubles
 		});
 	}
 	
-	public void RegisterFromPreviousContainer(ISinjectorContainer previousContainer, ISinjectorContainerBuilder builder)
+	public void OverwriteRegistrationsFromPreviousContainer(ISinjectorContainerBuilder builder, ISinjectorContainer previousContainer)
 	{
+		if (previousContainer == null)
+			return;
 		_items.ForEach(x =>
 		{
 			if (x.instance == null) 

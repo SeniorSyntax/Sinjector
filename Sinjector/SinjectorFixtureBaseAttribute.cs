@@ -35,7 +35,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 			.Fixture(testDetails.Fixture)
 			.Attribute(this)
 			.TestMethod(testDetails.Method.MethodInfo);
-		buildContainer();
+		buildContainer(null);
 
 		if (TestExecutionContext.CurrentContext.ParallelScope.HasFlag(ParallelScope.Children))
 			Injector.Inject(testDetails.Fixture, this);
@@ -51,49 +51,26 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 		InvokeExtensions<ITestSetup>(x => x.TestSetup());
 	}
 
-	private void buildContainer()
+	private void buildContainer(ISinjectorContainer previousContainer)
 	{
-		InvokeExtensions<IContainerBuild>(a =>
-		{
-			State.Container = a.ContainerBuild(register);
-		});
-
-		if (State.Container == null)
-		{
-			var builder = CreateBuilder();
-			register(builder);
-			State.Container = builder.Build();
-		}
-	}
-
-	private void rebuildContainer()
-	{
-		var previousContainer = State.Container;
-		State.Container = null;
-
-		_containersToDisposeAfterTestRun.Add(previousContainer);
 		InvokeExtensions<IContainerBuild>(a =>
 		{
 			State.Container = a.ContainerBuild(builder =>
 			{
-				register(builder);
-				State.TestDoubles.RegisterFromPreviousContainer(previousContainer, builder);
+				register(builder, previousContainer);
 			});
 		});
 
 		if (State.Container == null)
 		{
 			var builder = CreateBuilder();
-			register(builder);
-			State.TestDoubles.RegisterFromPreviousContainer(previousContainer, builder);
+			register(builder, previousContainer);
 			State.Container = builder.Build();
 		}
-
-		_injector?.Source(State.Container);
-		_injector?.Inject();
 	}
+	
 
-	private void register(ISinjectorContainerBuilder builder)
+	private void register(ISinjectorContainerBuilder builder, ISinjectorContainer previousContainer)
 	{
 		var context = new ContainerSetupContext(State.TestDoubles, builder, _extensions);
 		context.AddService(this);
@@ -101,6 +78,8 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 		InvokeExtensions<IContainerSetup>(x => x.ContainerSetup(context));
 		InvokeExtensions<IExtendSystem>(x => x.Extend(context));
 		InvokeExtensions<IIsolateSystem>(x => x.Isolate(context));
+
+		State.TestDoubles.OverwriteRegistrationsFromPreviousContainer(builder, previousContainer);
 	}
 
 	public void AfterTest(ITest testDetails)
@@ -126,6 +105,15 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 	public void SimulateShutdown() => 
 		disposeContainer();
 	
-	public void SimulateRestart() => 
-		rebuildContainer();
+	public void SimulateRestart()
+	{
+		var previousContainer = State.Container;
+		State.Container = null;
+
+		_containersToDisposeAfterTestRun.Add(previousContainer);
+		buildContainer(previousContainer);
+
+		_injector?.Source(State.Container);
+		_injector?.Inject();
+	}
 }
