@@ -20,7 +20,7 @@ public class SpecificRegistrationTest
 
 public class SpecificAttribute : Attribute, IContainerSetup
 {
-    public void ContainerSetup(IContainerSetupContext context)
+    public void ContainerSetup(IExtend context)
     {
         context.AddSpecific(x => x.AddSingleton(new SpecificService()));
     }

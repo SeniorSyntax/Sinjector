@@ -18,7 +18,7 @@ public class SampleTest
 
 public class MySystemAttribute : Attribute, IContainerSetup
 {
-    public void ContainerSetup(IContainerSetupContext context)
+    public void ContainerSetup(IExtend context)
     {
         context.AddService<MyService>();
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Sinjector.Internals;
 
-internal class ContainerSetupContext : IContainerSetupContext, IIsolate
+internal class ContainerSetupContext : IExtend, IIsolate
 {
 	private readonly ITestDoubles _testDoubles;
 	private readonly ISinjectorContainerBuilder _builder;

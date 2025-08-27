@@ -75,7 +75,7 @@ public class TestDoublesTest
 
 	public class TestSystemAttribute : SinjectorFixtureAttribute, IContainerSetup, IIsolateSystem
 	{
-		public void ContainerSetup(IContainerSetupContext context)
+		public void ContainerSetup(IExtend context)
 		{
 			context.AddService<RealGenericTypedService>();
 			context.AddService<RealInstancedService>();

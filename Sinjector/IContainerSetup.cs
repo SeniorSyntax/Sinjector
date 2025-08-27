@@ -2,5 +2,5 @@ namespace Sinjector;
 
 public interface IContainerSetup
 {
-	void ContainerSetup(IContainerSetupContext context);
+	void ContainerSetup(IExtend context);
 }

@@ -40,7 +40,7 @@ public class RestartSimulationTest
 
 	public class TestSystemAttribute : SinjectorFixtureAttribute, IContainerSetup, IIsolateSystem
 	{
-		public void ContainerSetup(IContainerSetupContext context)
+		public void ContainerSetup(IExtend context)
 		{
 			context.AddService<TestService>();
 		}

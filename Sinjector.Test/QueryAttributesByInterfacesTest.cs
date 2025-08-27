@@ -54,7 +54,7 @@ public class QueryAttributesByInterfacesTest
 		public IEnumerable<TestQueriableAttribute> IsolateFoundAttributes;
 		public IEnumerable<TestQueriableAttribute> ExtendFoundAttributes;
 
-		public void ContainerSetup(IContainerSetupContext context)
+		public void ContainerSetup(IExtend context)
 		{
 			ContainerSetupFoundAttributes = context.QueryAllAttributes<TestQueriableAttribute>();
 		}

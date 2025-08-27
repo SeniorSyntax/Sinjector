@@ -86,7 +86,7 @@ public class WebApplicationFactoryTest : IIsolateSystem
 			return new AutofacContainer(factory.Container);
 		}
 
-		public void ContainerSetup(IContainerSetupContext context)
+		public void ContainerSetup(IExtend context)
 		{
 			context.AddModule(new TestSystemModule());
 		}

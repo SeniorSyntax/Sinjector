@@ -33,7 +33,7 @@ public class InjectionTest
 	[TestSystemExtended]
 	public class TestSystemAttribute : SinjectorFixtureAttribute, IContainerSetup
 	{
-		public void ContainerSetup(IContainerSetupContext context)
+		public void ContainerSetup(IExtend context)
 		{
 			context.AddService<TestService>();
 		}
