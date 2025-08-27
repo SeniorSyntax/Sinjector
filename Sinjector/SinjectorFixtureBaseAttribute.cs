@@ -18,7 +18,6 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 
 	private class TestState
 	{
-		public object Fixture;
 		public ISinjectorContainer Container;
 		public ITestDoubles TestDoubles;
 	}
@@ -31,7 +30,6 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 	public void BeforeTest(ITest testDetails)
 	{
 		_state[WorkerId] = new TestState();
-		State.Fixture = testDetails.Fixture;
 		State.TestDoubles = new TestDoubles();
 		_extensions = new ExtensionQuerier()
 			.Fixture(testDetails.Fixture)
@@ -40,7 +38,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 		buildContainer();
 
 		if (TestExecutionContext.CurrentContext.ParallelScope.HasFlag(ParallelScope.Children))
-			Injector.Inject(State.Fixture, this);
+			Injector.Inject(testDetails.Fixture, this);
 		else
 		{
 			_injector = new Injector()
