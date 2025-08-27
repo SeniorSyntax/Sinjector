@@ -22,21 +22,13 @@ public class AutofacBuilder(ContainerBuilder builder) : ITheContainerBuilder
             .ExternallyOwned()
             .PropertiesAutowired();
 
-    public object AddService(Type type, bool instancePerLifeTimeScope)
-    {
-        var registration = builder
+    public object AddService(Type type) =>
+        builder
             .RegisterType(type)
             .AsSelf()
-            .AsImplementedInterfaces();
+            .AsImplementedInterfaces()
+            .SingleInstance();
 
-        if (instancePerLifeTimeScope)
-            registration.InstancePerLifetimeScope();
-        else
-            registration.SingleInstance();
-
-        return registration;
-    }
-    
     public void AddService<TService>(TService instance) where TService : class =>
         builder
             .RegisterInstance(instance)

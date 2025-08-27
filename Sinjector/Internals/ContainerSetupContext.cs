@@ -21,12 +21,12 @@ internal class ContainerSetupContext : IContainerSetupContext, IIsolate
 	public void AddService<TService>(TService instance) where TService : class => 
 		_builder.AddService(instance);
 	
-	public void AddService<TService>(bool instancePerLifeTimeScope = false) where TService : class => 
-		AddService(typeof(TService), instancePerLifeTimeScope);
+	public void AddService<TService>() where TService : class => 
+		AddService(typeof(TService));
 
-	public void AddService(Type type, bool instancePerLifeTimeScope = false)
+	public void AddService(Type type)
 	{
-		var registration = _builder.AddService(type, instancePerLifeTimeScope);
+		var registration = _builder.AddService(type);
 		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.RegistrationCallback(registration));
 	}
 

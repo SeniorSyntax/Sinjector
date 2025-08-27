@@ -23,12 +23,10 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ITheContainer
         }
     }
 
-    public object AddService(Type type, bool instancePerLifeTimeScope)
+    public object AddService(Type type)
     {
         //todo: also register as its implemented interfaces?
-        return instancePerLifeTimeScope ?
-            serviceCollection.AddScoped(type) :
-            serviceCollection.AddSingleton(type);
+        return serviceCollection.AddSingleton(type);
     }
 
     public void AddService<TService>(TService instance) where TService : class
