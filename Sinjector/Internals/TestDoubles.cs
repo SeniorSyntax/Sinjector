@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Sinjector.Internals;
 
-internal class TestDoubles : ITestDoubles
+internal class TestDoubles
 {
 	private readonly List<testDouble> _items = [];
 
@@ -16,26 +16,17 @@ internal class TestDoubles : ITestDoubles
 
 	public void Register(ISinjectorContainerBuilder builder, object instance, Type type, Type[] asTypes)
 	{
-		var testDouble = new testDouble
-		{
-			instance = instance,
-			type = type,
-			asTypes = asTypes
-		};
-		_items.Add(testDouble);
-		register(builder, testDouble);
-	}
-
-	private void register(ISinjectorContainerBuilder builder, testDouble testDouble)
-	{
-		var instance = testDouble.instance;
-		var type = testDouble.type;
-		var asTypes = testDouble.asTypes;
-
 		if (instance != null)
 			builder.RegisterTestDoubleInstance(instance, asTypes);
 		else
 			builder.RegisterTestDoubleType(type, asTypes);
+		
+		_items.Add(new testDouble
+		{
+			instance = instance,
+			type = type,
+			asTypes = asTypes
+		});
 	}
 	
 	public void RegisterFromPreviousContainer(ISinjectorContainer previousContainer, ISinjectorContainerBuilder builder)

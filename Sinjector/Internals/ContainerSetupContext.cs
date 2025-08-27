@@ -5,11 +5,11 @@ namespace Sinjector.Internals;
 
 internal class ContainerSetupContext : IExtend, IIsolate
 {
-	private readonly ITestDoubles _testDoubles;
+	private readonly TestDoubles _testDoubles;
 	private readonly ISinjectorContainerBuilder _builder;
 	private readonly ExtensionQuerier _extensionQuerier;
 
-	internal ContainerSetupContext(ITestDoubles testDoubles, ISinjectorContainerBuilder builder, ExtensionQuerier extensionQuerier)
+	internal ContainerSetupContext(TestDoubles testDoubles, ISinjectorContainerBuilder builder, ExtensionQuerier extensionQuerier)
 	{
 		_testDoubles = testDoubles;
 		_builder = builder;
@@ -45,7 +45,7 @@ internal class ContainerSetupContext : IExtend, IIsolate
 	public IEnumerable<T> QueryAllAttributes<T>() =>
 		_extensionQuerier.Query<T>();
 		
-	private class testDoubleFor(ITestDoubles testDoubles, ISinjectorContainerBuilder builder, Type type, object instance)
+	private class testDoubleFor(TestDoubles testDoubles, ISinjectorContainerBuilder builder, Type type, object instance)
 		: ITestDoubleFor
 	{
 		public void For<T>() => register(typeof(T));

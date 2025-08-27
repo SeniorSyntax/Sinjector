@@ -19,7 +19,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 	private class TestState
 	{
 		public ISinjectorContainer Container;
-		public ITestDoubles TestDoubles;
+		public TestDoubles TestDoubles;
 	}
 
 	private readonly IList<ISinjectorContainer> _containersToDisposeAfterTestRun = new List<ISinjectorContainer>();
@@ -55,16 +55,13 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 	{
 		InvokeExtensions<IContainerBuild>(a =>
 		{
-			State.Container = a.ContainerBuild(builder =>
-			{
-				register(builder, State.TestDoubles);
-			});
+			State.Container = a.ContainerBuild(register);
 		});
 
 		if (State.Container == null)
 		{
 			var builder = CreateBuilder();
-			register(builder, State.TestDoubles);
+			register(builder);
 			State.Container = builder.Build();
 		}
 	}
@@ -79,7 +76,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 		{
 			State.Container = a.ContainerBuild(builder =>
 			{
-				register(builder, new IgnoreTestDoubles());
+				register(builder);
 				State.TestDoubles.RegisterFromPreviousContainer(previousContainer, builder);
 			});
 		});
@@ -87,7 +84,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 		if (State.Container == null)
 		{
 			var builder = CreateBuilder();
-			register(builder, new IgnoreTestDoubles());
+			register(builder);
 			State.TestDoubles.RegisterFromPreviousContainer(previousContainer, builder);
 			State.Container = builder.Build();
 		}
@@ -96,9 +93,9 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 		_injector?.Inject();
 	}
 
-	private void register(ISinjectorContainerBuilder builder, ITestDoubles testDoubles)
+	private void register(ISinjectorContainerBuilder builder)
 	{
-		var context = new ContainerSetupContext(testDoubles, builder, _extensions);
+		var context = new ContainerSetupContext(State.TestDoubles, builder, _extensions);
 		context.AddService(this);
 
 		InvokeExtensions<IContainerSetup>(x => x.ContainerSetup(context));
