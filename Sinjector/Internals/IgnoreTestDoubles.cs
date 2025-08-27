@@ -8,12 +8,7 @@ internal class IgnoreTestDoubles : ITestDoubles
     {
     }
 
-    public void RegisterFromPreviousContainer(ISinjectorContainerBuilder builder)
+    public void RegisterFromPreviousContainer(ISinjectorContainer sinjectorContainer, ISinjectorContainerBuilder builder)
     {
-    }
-
-    public void SetInstances(ISinjectorContainer sinjectorContainer)
-    {
-        
     }
 }

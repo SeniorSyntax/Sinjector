@@ -23,6 +23,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 		public ITestDoubles TestDoubles;
 	}
 
+	private readonly IList<ISinjectorContainer> _containersToDisposeAfterTestRun = new List<ISinjectorContainer>();
 	private static string WorkerId => TestContext.CurrentContext.WorkerId ?? "single";
 	private readonly ConcurrentDictionary<string, TestState> _state = new();
 	private TestState State => _state[WorkerId];
@@ -72,14 +73,16 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 
 	private void rebuildContainer()
 	{
+		var previousContainer = State.Container;
 		State.Container = null;
 
+		_containersToDisposeAfterTestRun.Add(previousContainer);
 		InvokeExtensions<IContainerBuild>(a =>
 		{
 			State.Container = a.ContainerBuild(builder =>
 			{
 				register(builder, new IgnoreTestDoubles());
-				State.TestDoubles.RegisterFromPreviousContainer(builder);
+				State.TestDoubles.RegisterFromPreviousContainer(previousContainer, builder);
 			});
 		});
 
@@ -87,11 +90,12 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 		{
 			var builder = CreateBuilder();
 			register(builder, new IgnoreTestDoubles());
-			State.TestDoubles.RegisterFromPreviousContainer(builder);
+			State.TestDoubles.RegisterFromPreviousContainer(previousContainer, builder);
 			State.Container = builder.Build();
 		}
 
 		_injector?.Source(State.Container);
+		_injector?.Inject();
 	}
 
 	private void register(ISinjectorContainerBuilder builder, ITestDoubles testDoubles)
@@ -127,12 +131,6 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 	public void SimulateShutdown() => 
 		disposeContainer();
 	
-	private readonly IList<ISinjectorContainer> _containersToDisposeAfterTestRun = new List<ISinjectorContainer>();
-	public void SimulateRestart()
-	{
-		State.TestDoubles.SetInstances(State.Container);
-		_containersToDisposeAfterTestRun.Add(State.Container);
+	public void SimulateRestart() => 
 		rebuildContainer();
-		_injector?.Inject();
-	}
 }

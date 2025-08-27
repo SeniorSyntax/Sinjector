@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Sinjector.Internals;
 
@@ -38,27 +37,15 @@ internal class TestDoubles : ITestDoubles
 		else
 			builder.RegisterTestDoubleType(type, asTypes);
 	}
-
-	public void SetInstances(ISinjectorContainer sinjectorContainer)
-	{
-		foreach (var testDouble in _items.Where(testDouble => testDouble.type != null))
-		{
-			testDouble.instance = sinjectorContainer.Resolve(testDouble.type);
-		}
-	}
-
-	public void RegisterFromPreviousContainer(ISinjectorContainerBuilder builder)
+	
+	public void RegisterFromPreviousContainer(ISinjectorContainer sinjectorContainer, ISinjectorContainerBuilder builder)
 	{
 		_items.ForEach(x =>
 		{
-			if (x.instance == null)
-			{
-				builder.RegisterTestDoubleType(x.type, x.asTypes);
-			}
-			else
-			{
-				builder.RegisterTestDoubleInstance(x.instance, x.asTypes);
-			}
+			if (x.instance == null) 
+				x.instance = sinjectorContainer.Resolve(x.type);
+			
+			builder.RegisterTestDoubleInstance(x.instance, x.asTypes);
 		});
 	}
 }
