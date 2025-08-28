@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using NUnit.Framework.Internal;
 using Sinjector.Internals;
 
 namespace Sinjector;
@@ -37,16 +36,11 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 			.TestMethod(testDetails.Method.MethodInfo);
 		buildContainer(null);
 
-		if (TestExecutionContext.CurrentContext.ParallelScope.HasFlag(ParallelScope.Children))
-			Injector.Inject(testDetails.Fixture, this);
-		else
-		{
-			_injector = new Injector()
-				.Source(State.Container)
-				.Target(testDetails.Fixture)
-				.Target(this);
-			_injector.Inject();
-		}
+		_injector = new Injector()
+			.Source(State.Container)
+			.Target(testDetails.Fixture)
+			.Target(this);
+		_injector.Inject();
 
 		InvokeExtensions<ITestSetup>(x => x.TestSetup());
 	}
@@ -68,7 +62,6 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 			State.Container = builder.Build();
 		}
 	}
-	
 
 	private void register(ISinjectorContainerBuilder builder, ISinjectorContainer previousContainer)
 	{

@@ -33,16 +33,4 @@ internal class Injector
 		var fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
 		fields.ForEach(x => x.SetValue(target, container.Resolve(x.FieldType)));
 	}
-
-	internal static void Inject(object target, object instance)
-	{
-		var type = target.GetType();
-		var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-			.Where(x => x.CanWrite)
-			.Where(x => x.PropertyType.IsInstanceOfType(instance));
-		properties.ForEach(x => x.SetValue(target, instance, null));
-		var fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance)
-			.Where(x => x.FieldType.IsInstanceOfType(instance));
-		fields.ForEach(x => x.SetValue(target, instance));
-	}
 }
