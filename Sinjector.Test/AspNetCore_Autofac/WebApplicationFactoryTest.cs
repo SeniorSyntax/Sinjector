@@ -70,25 +70,20 @@ public class WebApplicationFactoryTest : IIsolateSystem
 		HttpContextAccessor.Should().Have.Count.EqualTo(1);
 	}
 
-	public class WebApplicationFactoryTestAttribute : Attribute, IContainerBuild, IContainerSetup
+	public class WebApplicationFactoryTestAttribute : Attribute, IContainerBuild
 	{
-		public ISinjectorContainer ContainerBuild(Action<ISinjectorContainerBuilder> registrations)
+		public ISinjectorContainer ContainerBuild()
 		{
 			AutofacWebApplicationFactory<TestStartup> factory = null;
 
 			factory = new AutofacWebApplicationFactory<TestStartup>(builder =>
 			{
-				registrations.Invoke(new AutofacBuilder(builder));
+				builder.RegisterModule(new TestSystemModule());
 				builder.RegisterInstance(factory).As<AutofacWebApplicationFactory<TestStartup>>().SingleInstance();
 			});
 			factory.CreateClient();
 
 			return new AutofacContainer(factory.Container);
-		}
-
-		public void ContainerSetup(IExtend context)
-		{
-			context.AddModule(new TestSystemModule());
 		}
 	}
 

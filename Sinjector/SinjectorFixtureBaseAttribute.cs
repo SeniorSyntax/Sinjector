@@ -49,10 +49,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 	{
 		InvokeExtensions<IContainerBuild>(a =>
 		{
-			State.Container = a.ContainerBuild(builder =>
-			{
-				register(builder, previousContainer);
-			});
+			State.Container = a.ContainerBuild();
 		});
 
 		if (State.Container == null)
