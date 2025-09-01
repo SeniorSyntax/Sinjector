@@ -2,7 +2,7 @@ using System;
 
 namespace Sinjector;
 
-public interface IExtend : IHoldState, IQueryAttributes
+public interface IExtend : IQueryAttributes
 {
 	void AddService<TService>() where TService : class;
 	void AddService<TService>(TService instance) where TService : class;

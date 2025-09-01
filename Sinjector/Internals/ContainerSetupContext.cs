@@ -16,8 +16,6 @@ internal class ContainerSetupContext : IExtend, IIsolate
 		_extensionQuerier = extensionQuerier;
 	}
 
-	public object State { get; set; }
-
 	public void AddService<TService>(TService instance) where TService : class => 
 		_builder.AddService(instance);
 	
