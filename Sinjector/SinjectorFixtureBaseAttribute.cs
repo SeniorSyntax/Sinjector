@@ -80,7 +80,6 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 		InvokeExtensions<ITestTeardown>(x => x.TestTeardown());
 		disposeContainer();
 		_containersToDisposeAfterTestRun.ForEach(x => x.Dispose());
-		_injector = null;
 		_state.TryRemove(WorkerId, out _);
 	}
 
