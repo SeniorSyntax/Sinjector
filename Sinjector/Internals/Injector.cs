@@ -6,23 +6,16 @@ namespace Sinjector.Internals;
 
 internal class Injector
 {
-	private ISinjectorContainer _container;
 	private readonly List<object> _targets = new();
-
-	public Injector Source(ISinjectorContainer container)
-	{
-		_container = container;
-		return this;
-	}
-
+	
 	public Injector Target(object target)
 	{
 		_targets.Add(target);
 		return this;
 	}
 
-	public void Inject() => 			
-		_targets.ForEach(x => injectTo(_container, x));
+	public void InjectFrom(ISinjectorContainer container) => 			
+		_targets.ForEach(x => injectTo(container, x));
 		
 	private static void injectTo(ISinjectorContainer container, object target)
 	{

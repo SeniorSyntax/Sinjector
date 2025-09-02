@@ -37,10 +37,9 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 		buildContainer(null);
 
 		_injector = new Injector()
-			.Source(State.Container)
 			.Target(testDetails.Fixture)
 			.Target(this);
-		_injector.Inject();
+		_injector.InjectFrom(State.Container);
 
 		InvokeExtensions<ITestSetup>(x => x.TestSetup());
 	}
@@ -104,8 +103,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 
 		_containersToDisposeAfterTestRun.Add(previousContainer);
 		buildContainer(previousContainer);
-
-		_injector?.Source(State.Container);
-		_injector?.Inject();
+		
+		_injector?.InjectFrom(State.Container);
 	}
 }
