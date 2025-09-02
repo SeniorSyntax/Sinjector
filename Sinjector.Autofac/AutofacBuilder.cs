@@ -11,7 +11,6 @@ public class AutofacBuilder(ContainerBuilder builder) : ISinjectorContainerBuild
             .SingleInstance()
             .AsSelf()
             .As(asTypes)
-            .ExternallyOwned()
             .PropertiesAutowired();
 
     public void RegisterTestDoubleInstance(object instance, Type[] asTypes) =>
@@ -19,7 +18,6 @@ public class AutofacBuilder(ContainerBuilder builder) : ISinjectorContainerBuild
             .RegisterInstance(instance)
             .AsSelf()
             .As(asTypes)
-            .ExternallyOwned()
             .PropertiesAutowired();
 
     public void AddService(Type type) =>
