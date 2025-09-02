@@ -86,7 +86,7 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 		State.Container?.Dispose();
 
 	protected void InvokeExtensions<T>(Action<T> action) where T : class =>
-		_extensions.InvokeExtensions(action);
+		_extensions.Query<T>().ForEach(action);
 		
 	protected IEnumerable<T> QueryAllAttributes<T>() => _extensions.Query<T>();
 	protected T Resolve<T>() => State.Container.Resolve<T>();

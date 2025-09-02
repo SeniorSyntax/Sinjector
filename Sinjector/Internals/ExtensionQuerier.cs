@@ -37,10 +37,7 @@ internal class ExtensionQuerier
 
 	public IEnumerable<T> Query<T>() =>
 		_allExtensions.Value.OfType<T>().ToArray();
-
-	public void InvokeExtensions<T>(Action<T> action) where T : class =>
-		Query<T>().ForEach(action.Invoke);
-		
+	
 	private IEnumerable<object> GetAllExtensions()
 	{
 		var attributeType = _attribute.GetType();
