@@ -23,15 +23,13 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ISinjectorCon
         }
     }
 
-    public object AddService(Type type)
+    public void AddService(Type type)
     {
         serviceCollection.AddSingleton(type);
         foreach (var asType in type.GetInterfaces())
         {
             serviceCollection.AddSingleton(asType, sp => sp.GetRequiredService(type));   
         }
-
-        return null;
     }
 
     public void AddService<TService>(TService instance) where TService : class

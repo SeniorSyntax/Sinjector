@@ -22,7 +22,7 @@ public class AutofacBuilder(ContainerBuilder builder) : ISinjectorContainerBuild
             .ExternallyOwned()
             .PropertiesAutowired();
 
-    public object AddService(Type type) =>
+    public void AddService(Type type) =>
         builder
             .RegisterType(type)
             .AsSelf()

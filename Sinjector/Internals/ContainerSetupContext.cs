@@ -22,11 +22,8 @@ internal class ContainerSetupContext : IExtend, IIsolate
 	public void AddService<TService>() where TService : class => 
 		AddService(typeof(TService));
 
-	public void AddService(Type type)
-	{
-		var registration = _builder.AddService(type);
-		_extensionQuerier.InvokeExtensions<IContainerRegistrationSetup>(x => x.RegistrationCallback(registration));
-	}
+	public void AddService(Type type) => 
+		_builder.AddService(type);
 
 	public void Add(object module) =>
 		_builder.Add(module);
