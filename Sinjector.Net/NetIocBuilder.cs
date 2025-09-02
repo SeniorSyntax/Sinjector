@@ -23,24 +23,11 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ISinjectorCon
         }
     }
 
-    public void AddService(Type type)
-    {
-        serviceCollection.AddSingleton(type);
-        foreach (var asType in type.GetInterfaces())
-        {
-            serviceCollection.AddSingleton(asType, sp => sp.GetRequiredService(type));   
-        }
-    }
+    public void AddService(Type type) => 
+        RegisterTestDoubleType(type, type.GetInterfaces());
 
-    public void AddService<TService>(TService instance) where TService : class
-    {
-        var instanceType = instance.GetType();
-        serviceCollection.AddSingleton(instanceType, instance);
-        foreach (var interfaceType in instanceType.GetInterfaces())
-        {
-            serviceCollection.AddSingleton(interfaceType, sp => sp.GetRequiredService(instanceType));   
-        }
-    }
+    public void AddService<TService>(TService instance) where TService : class => 
+        RegisterTestDoubleInstance(instance, instance.GetType().GetInterfaces());
 
     public void Add(object actionOnBuilder)
     {
