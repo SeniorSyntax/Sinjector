@@ -10,15 +10,13 @@ public class AutofacBuilder(ContainerBuilder builder) : ISinjectorContainerBuild
             .RegisterType(type)
             .SingleInstance()
             .AsSelf()
-            .As(asTypes)
-            .PropertiesAutowired();
+            .As(asTypes);
 
     public void RegisterTestDoubleInstance(object instance, Type[] asTypes) =>
         builder
             .RegisterInstance(instance)
             .AsSelf()
-            .As(asTypes)
-            .PropertiesAutowired();
+            .As(asTypes);
 
     public void AddService(Type type) =>
         builder
