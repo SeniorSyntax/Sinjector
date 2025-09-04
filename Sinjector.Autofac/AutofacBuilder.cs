@@ -8,9 +8,9 @@ public class AutofacBuilder(ContainerBuilder builder) : ISinjectorContainerBuild
     public void RegisterTestDoubleType(Type type, Type[] asTypes) =>
         builder
             .RegisterType(type)
-            .SingleInstance()
             .AsSelf()
-            .As(asTypes);
+            .As(asTypes)
+            .SingleInstance();
 
     public void RegisterTestDoubleInstance(object instance, Type[] asTypes) =>
         builder
@@ -19,18 +19,10 @@ public class AutofacBuilder(ContainerBuilder builder) : ISinjectorContainerBuild
             .As(asTypes);
 
     public void AddService(Type type) =>
-        builder
-            .RegisterType(type)
-            .AsSelf()
-            .AsImplementedInterfaces()
-            .SingleInstance();
-
+        RegisterTestDoubleType(type, type.GetInterfaces());
+    
     public void AddService<TService>(TService instance) where TService : class =>
-        builder
-            .RegisterInstance(instance)
-            .AsSelf()
-            .AsImplementedInterfaces()
-            .SingleInstance();
+        RegisterTestDoubleInstance(instance, instance.GetType().GetInterfaces());
 
     public void Add(object actionOnBuilder)
     {
