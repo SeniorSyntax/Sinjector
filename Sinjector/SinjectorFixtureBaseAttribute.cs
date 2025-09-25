@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using NUnit.Framework.Internal;
 using Sinjector.Internals;
 
 namespace Sinjector;
@@ -20,6 +21,9 @@ public abstract class SinjectorFixtureBaseAttribute : Attribute, ITestAction, IS
 
 	public void BeforeTest(ITest testDetails)
 	{
+		if (TestExecutionContext.CurrentContext.ParallelScope.HasFlag(ParallelScope.Children))
+			throw new NotSupportedException("Combining sinjector with parallel children test execution is not supported.");
+		
 		_testDoubles = new TestDoubles();
 		_extensions = new ExtensionQuerier()
 			.Fixture(testDetails.Fixture)
