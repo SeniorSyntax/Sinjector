@@ -35,6 +35,6 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ISinjectorCon
         action(serviceCollection);
     }
 
-    public ISinjectorContainer Build() => 
+    public virtual ISinjectorContainer Build() => 
         new NetIocContainer(serviceCollection.BuildServiceProvider());
 }
