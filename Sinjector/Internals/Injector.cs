@@ -6,7 +6,7 @@ namespace Sinjector.Internals;
 
 internal class Injector
 {
-	private readonly List<object> _targets = new();
+	private readonly List<object> _targets = [];
 	
 	public Injector Target(object target)
 	{
