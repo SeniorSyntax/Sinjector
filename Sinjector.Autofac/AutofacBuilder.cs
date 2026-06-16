@@ -18,12 +18,6 @@ public class AutofacBuilder(ContainerBuilder builder) : ISinjectorContainerBuild
             .AsSelf()
             .As(asTypes);
 
-    public void AddService(Type type) =>
-        RegisterTestDoubleType(type, type.GetInterfaces());
-    
-    public void AddService<TService>(TService instance) where TService : class =>
-        RegisterTestDoubleInstance(instance, instance.GetType().GetInterfaces());
-
     public void Add(object actionOnBuilder)
     {
         var action = (Action<ContainerBuilder>)actionOnBuilder;

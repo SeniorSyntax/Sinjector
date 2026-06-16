@@ -22,13 +22,7 @@ public class NetIocBuilder(IServiceCollection serviceCollection) : ISinjectorCon
             serviceCollection.AddSingleton(asType, instance); 
         }
     }
-
-    public void AddService(Type type) => 
-        RegisterTestDoubleType(type, type.GetInterfaces());
-
-    public void AddService<TService>(TService instance) where TService : class => 
-        RegisterTestDoubleInstance(instance, instance.GetType().GetInterfaces());
-
+    
     public void Add(object actionOnBuilder)
     {
         var action = (Action<IServiceCollection>)actionOnBuilder;
